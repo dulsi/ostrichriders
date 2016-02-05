@@ -1,0 +1,54 @@
+Ostrich Riders
+by Seby and Suiland
+
+Contact: sebygames@gmail.com
+
+Developpement:
+Seby <sebygames@gmail.com>
+
+Graphics:
+Suiland
+________________________________________________________
+
+Description:
+
+Ostrich Riders is a free clone of the arcade game "Joust".
+It's a sort of fighting arcade game for one or two players, where the players, riding flying ostriches, have to collide the opponents while being vertically higher.
+When an opponent falls, it generates an egg. Egg has to be taken before a new and stronger opponent appears.
+
+Version 0.6.1 - 2009-09-26
+
+ChangeLog:
+- FIX: Collision with bottom plateform bug fixed
+- FIX: Collision with horizontal plateform bug fixed
+- FIX: Player used to disappear without animation when being hit by the other human player
+- MOD: Add '<' and '>' around selected menu entries, where the choice can be changed with the left or right arrows
+- NEW: 'Options' entry in the menu, with the possibilities to set/unset fullscreen or configure new control keys
+- NEW: Random maps generator (random mod)
+________________________________________________________
+
+Version 0.6.0 - 2009-08-30
+
+ChangeLog:
+- NEW: Flag in a file to turn on/off fullscreen (FULLSCREEN 0 for windowed or FULLSCREEN 1 for fullscreen in "constants.dat")
+- NEW: Combos: if the delay between hitting two opponents is lower than 1.5 second, player makes a combo (score multiplier, up to 4x, display the "real" combo - ie when multikilling 6 opponents, last 3 scores will be "x4", but last displays will be "x4", "x5", "x6"
+- NEW: Hi-Scores saving (display as a tables, input field for the name - last entries will be "blinking" - entered names are saved for the next game without new launch)
+- NEW: Menu (start, exit, number of players, mod)
+- NEW: Modding: custom mod with new maps, background and tiles, custom constants for physics, selectable from the menu
+- NEW: In-game pause with the [P] key
+- NEW: Character selection for 1 player mode
+- NEW: [External]Level/Mod editor
+- MOD: Split the constant SPEED_DELAY in four different constants: SPEED_DELAY_WALKING, SPEED_DELAY_BRAKING, SPEED_DELAY_FLYING, SPEED_DELAY_AIR_BRAKING for a better tuning of the physics
+- MOD: Add a transparent rectangle behind the interlevel summary
+- MOD: level time (time to finish a level with bonus) is now 80 s (was 120 s)
+- MOD: Change the 2 sounds "step.wav" and "jousterCollision.wav"
+- MOD: new graphics ! Sprites - Tiles - Backgrounds - Intro - Huds
+________________________________________________________
+
+Version 0.5.0  -  2009-07-14
+This version features:
+- sprites and tiles,
+- sound effects,
+- 2D physics,
+- Gameplay: 8 levels, scores, lives, bonus...
+- AI (poor)
