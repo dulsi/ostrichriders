@@ -10,6 +10,7 @@ namespace OstrichRiders
         if (init)
         {
             defFont.loadFromFile("/usr/share/fonts/liberation/LiberationSans-Regular.ttf");
+            init = false;
         }
         return defFont;
     }
