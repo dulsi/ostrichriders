@@ -35,10 +35,11 @@ class Game
         virtual void quitGame();
 
         static float getAbsolutTime();
+        static float getTimePassed();
 
     protected:
         virtual void onRender();     // screen and game items rendering
-        virtual void onUpdate();
+        virtual void onUpdate(float dt);
 
         int screenWidth;
         int screenHeight;

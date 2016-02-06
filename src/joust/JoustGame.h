@@ -32,7 +32,7 @@ class JoustGame : public Game
 
     protected:
         virtual void onRender();     // screen and game items rendering
-        virtual void onUpdate();
+        virtual void onUpdate(float dt);
 
         //PlayerInput playerInput[2];
 };

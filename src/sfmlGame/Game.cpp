@@ -44,6 +44,11 @@ float Game::getAbsolutTime()
     return clockTime.getElapsedTime().asSeconds();
 }
 
+float Game::getTimePassed()
+{
+    return clockTime.restart().asSeconds();
+}
+
 void Game::startGame()
 {
     // Start game loop
@@ -64,7 +69,7 @@ void Game::startGame()
 
         }
 
-        onUpdate();
+        onUpdate(getTimePassed());
         onRender();
 
     }
@@ -87,8 +92,8 @@ void Game::onRender()
     app->display();
 }
 
-void Game::onUpdate()
+void Game::onUpdate(float dt)
 {
-    EntityManager::getEntityManager()->animate(clockTime.restart().asSeconds());
+    EntityManager::getEntityManager()->animate(dt);
 }
 

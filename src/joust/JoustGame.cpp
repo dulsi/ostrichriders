@@ -35,7 +35,6 @@ JoustGame::JoustGame(): Game(SCREEN_WIDTH,
 
 JoustGame::~JoustGame()
 {
-    //delete(app);
 }
 
 void JoustGame::startGame()
@@ -112,7 +111,6 @@ void JoustGame::startGame()
     // Start game loop
     printf("Starting %s %s\n", APP_NAME.c_str(), APP_VERSION.c_str());
 
-    sf::Clock clock;
     while (app->isOpen())
     {
         // Process events
@@ -177,13 +175,15 @@ void JoustGame::startGame()
                     else if (event.key.code == sf::Keyboard::P)
                     {
                         lEngine->pauseOrUnpause();
+                        getTimePassed();
                     }
                 }
             }
 
             else if (LogicEngine::getLogicEngine()->getGameState() == LogicEngine::GAME_GAMEOVER)
             {
-                if (event.type == sf::Event::KeyPressed || event.type == sf::Event::JoystickButtonPressed) {
+                if (event.type == sf::Event::KeyPressed || event.type == sf::Event::JoystickButtonPressed)
+                {
                     //if (event.Key.Code == sf::Key::Escape)
                     {
                         if (lEngine->canEndGameOver()) lEngine->startIntro();
@@ -194,8 +194,6 @@ void JoustGame::startGame()
 
         float joyX = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
 
-//        lEngine->getPlayerInput(0)->left = sf::Keyboard::isKeyPressed(sf::Keyboard::S) || joyX < -20.0f;
-//        lEngine->getPlayerInput(0)->right = sf::Keyboard::isKeyPressed(sf::Keyboard::D) || joyX > 20.0f;
         lEngine->getPlayerInput(0)->left = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(0).left)) || joyX < -20.0f;
         lEngine->getPlayerInput(0)->right = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(0).right)) || joyX > 20.0f;
         lEngine->getPlayerInput(1)->left = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(1).left)); //|| joyX < -20.0f;
@@ -204,15 +202,15 @@ void JoustGame::startGame()
 
         if (!lEngine->isPausing())
         {
-            onUpdate();
-            lEngine->update(clock.restart().asSeconds());
+            float dt = getTimePassed();
+            onUpdate(dt);
+            lEngine->update(dt);
         }
 
         onRender();
 
     }
 
-    //delete map;
     quitGame();
 }
 
@@ -228,7 +226,7 @@ void JoustGame::onRender()
 
 
 
-void JoustGame::onUpdate()
+void JoustGame::onUpdate(float dt)
 {
-    Game::onUpdate();
+    Game::onUpdate(dt);
 }
