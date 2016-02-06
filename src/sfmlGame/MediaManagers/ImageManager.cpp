@@ -23,11 +23,11 @@ ImageManager::ImageManager()
 ImageManager::~ImageManager()
 {
     printf("Releasing video memory...\n");
-    for (unsigned int i = 0; i < imageArray.size(); i++)
+    for (unsigned int i = 0; i < textureArray.size(); i++)
     {
-        delete(imageArray[i]);
+        delete(textureArray[i]);
     }
-    imageArray.clear();
+    textureArray.clear();
 }
 
  ImageManager* ImageManager::getImageManager()
@@ -38,20 +38,17 @@ ImageManager::~ImageManager()
 
 void ImageManager::addImage(char* fileName)
 {
-    sf::Image* newImage = new sf::Image;
-    newImage->LoadFromFile(fileName);
-    imageArray.push_back(newImage);
+    sf::Texture* newTexture = new sf::Texture;
+    newTexture->loadFromFile(fileName);
+    textureArray.push_back(newTexture);
 }
 
 bool ImageManager::reloadImage(int n, const char* fileName)
 {
-    sf::Image* newImage = new sf::Image;
-    bool result = newImage->LoadFromFile(fileName);
-    imageArray[n] = newImage;
-    return result;
+    return textureArray[n]->loadFromFile(fileName);
 }
 
-sf::Image* ImageManager::getImage(int n)
+sf::Texture* ImageManager::getImage(int n)
 {
-    return imageArray[n];
+    return textureArray[n];
 }

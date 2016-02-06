@@ -24,7 +24,7 @@
 class PlayerEntity : public JousterEntity
 {
 public:
-    PlayerEntity(sf::Image* image, float x = 0.0f, float y = 0.0f, int playerNumber = 1);
+    PlayerEntity(sf::Texture* image, float x = 0.0f, float y = 0.0f, int playerNumber = 1);
     ~PlayerEntity();
 
     int getPlayerNumber();

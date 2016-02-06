@@ -67,7 +67,7 @@ SoundManager::~SoundManager()
     printf("Releasing audio memory...\n");
     for (unsigned int i = 0; i < soundBufferArray.size(); i++)
     {
-        soundArray[i]->Stop();
+        soundArray[i]->stop();
         delete(soundArray[i]);
         delete(soundBufferArray[i]);
     }
@@ -86,22 +86,22 @@ void SoundManager::addSound(char* fileName)
     printf("Loading sound: %s...\n", fileName);
 
     sf::SoundBuffer* newSoundBuffer = new sf::SoundBuffer;
-    newSoundBuffer->LoadFromFile(fileName);
+    newSoundBuffer->loadFromFile(fileName);
     soundBufferArray.push_back(newSoundBuffer);
 
     sf::Sound* newSound = new sf::Sound;
-    newSound->SetBuffer(*newSoundBuffer);
+    newSound->setBuffer(*newSoundBuffer);
     soundArray.push_back(newSound);
 }
 
 void SoundManager::playSound(int n)
 {
-    if (soundArray[n]->GetStatus() != sf::Sound::Playing)
-        soundArray[n]->Play();
+    if (soundArray[n]->getStatus() != sf::Sound::Playing)
+        soundArray[n]->play();
 }
 
 void SoundManager::stopSound(int n)
 {
-    if (soundArray[n]->GetStatus() == sf::Sound::Playing)
-        soundArray[n]->Stop();
+    if (soundArray[n]->getStatus() == sf::Sound::Playing)
+        soundArray[n]->stop();
 }

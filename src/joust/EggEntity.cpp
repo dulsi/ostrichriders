@@ -20,7 +20,7 @@
 #include "GameConstants.h"
 #include "../sfmlGame/MediaManagers/ImageManager.h"
 
-EggEntity::EggEntity(sf::Image* image, float x, float y)
+EggEntity::EggEntity(sf::Texture* image, float x, float y)
                                     : CollidingSpriteEntity(image, x, y, EGG_WIDTH, EGG_HEIGHT)
 {
     weight =        GameConstants::getGameConstants()->JOUSTER_WEIGHT;
@@ -39,10 +39,9 @@ EggEntity::~EggEntity()
 void EggEntity::render(sf::RenderWindow* app)
 {
     // rendering the rider
-    sprite.SetSubRect(sf::IntRect(0, height, width, 2 * height));
-    sprite.SetX(x);
-    sprite.SetY(y);
-    app->Draw(sprite);
+    sprite.setTextureRect(sf::IntRect(0, height, width, 2 * height));
+    sprite.setPosition(x, y);
+    app->draw(sprite);
 
     CollidingSpriteEntity::render(app);
 }
@@ -64,7 +63,7 @@ void EggEntity::animate(float delay)
     {
         float xScale = 1.1f + 0.3f * cosf(age * 5);
         float yScale = 1.1f + 0.3f * sinf(age * 5);
-        sprite.SetScale(xScale, yScale);
+        sprite.setScale(xScale, yScale);
     }
 
     if (collidingWithLava())
@@ -100,6 +99,6 @@ void EggEntity::exitMap(int direction)
 
 bool EggEntity::collidingWithLava()
 {
-    if (boundingBox.Bottom > (tileHeight - 2) * map->getHeight() + TILE_HEIGHT) return true;
+    if ((boundingBox.top + boundingBox.height) > (tileHeight - 2) * map->getHeight() + TILE_HEIGHT) return true;
     return false;
 }

@@ -18,7 +18,7 @@
 
 TextInputEntity::TextInputEntity(const sf::Font* font, int size, float x, float y) : GuiEntity(x, y)
 {
-    string = new sf::String(L"", *font, (float)size);
+    string = new sf::Text(L"", *font, (float)size);
     inputText = "";
     preText = "";
     alignment = ALIGN_LEFT;
@@ -36,13 +36,13 @@ void TextInputEntity::setSizeMax(unsigned int sizeMax) { this->sizeMax = sizeMax
 void TextInputEntity::render(sf::RenderWindow* app)
 {
     if (((int)(age * 2.0f)) % 2 == 0)
-        string->SetText(preText + inputText + "_");
+        string->setString(preText + inputText + "_");
     else
-        string->SetText(preText + inputText);
+        string->setString(preText + inputText);
 
     align();
     applyColor();
-    app->Draw(*string);
+    app->draw(*string);
 }
 
 void TextInputEntity::animate(float delay)
@@ -54,24 +54,24 @@ void TextInputEntity::onEvent(sf::Event event)
 {
     if (!isActive || age < 0.8f) return;
 
-    if (event.Type == sf::Event::KeyPressed) {
-        if (event.Key.Code == sf::Key::Return)
+    if (event.type == sf::Event::KeyPressed) {
+        if (event.key.code == sf::Keyboard::Return)
         {
             isReturned = true;
         }
-        else if (event.Key.Code == sf::Key::Back)
+        else if (event.key.code == sf::Keyboard::Delete)
         {
             if (inputText.size() > 0) inputText.erase(inputText.size()-1);
         }
-        else if (event.Key.Code >= sf::Key::A && event.Key.Code <= sf::Key::Z)
+        else if (event.key.code >= sf::Keyboard::A && event.key.code <= sf::Keyboard::Z)
         {
             if (inputText.size() <= +sizeMax)
-                inputText += ('A' + (event.Key.Code - sf::Key::A));
+                inputText += ('A' + (event.key.code - sf::Keyboard::A));
         }
-        else if (event.Key.Code >= sf::Key::Num0 && event.Key.Code <= sf::Key::Num9)
+        else if (event.key.code >= sf::Keyboard::Num0 && event.key.code <= sf::Keyboard::Num9)
         {
             if (inputText.size() <= +sizeMax)
-                inputText += ('0' + (event.Key.Code - sf::Key::Num0));
+                inputText += ('0' + (event.key.code - sf::Keyboard::Num0));
         }
     }
 }
@@ -91,17 +91,17 @@ void TextInputEntity::align()
     switch (alignment)
     {
         case ALIGN_LEFT:
-        string->SetPosition(x, y - string->GetRect().GetHeight() / 2);
+        string->setPosition(x, y - string->getGlobalBounds().height / 2);
         break;
 
         case ALIGN_CENTER:
-        string->SetPosition( x - string->GetRect().GetWidth() / 2,
-                             y - string->GetRect().GetHeight() / 2);
+        string->setPosition( x - string->getGlobalBounds().width / 2,
+                             y - string->getGlobalBounds().height / 2);
         break;
 
         case ALIGN_RIGHT:
-        string->SetPosition( x - string->GetRect().GetWidth(),
-                             y - string->GetRect().GetHeight() / 2);
+        string->setPosition( x - string->getGlobalBounds().width,
+                             y - string->getGlobalBounds().height / 2);
         break;
     }
 }
@@ -110,13 +110,13 @@ void TextInputEntity::applyColor()
 {
     switch (colorType)
     {
-        case COLOR_BLUE: string->SetColor(sf::Color(0, 0, 255, 255)); break;
-        case COLOR_RED: string->SetColor(sf::Color(255, 0, 0, 255)); break;
-        case COLOR_GREEN: string->SetColor(sf::Color(0, 255, 0, 255)); break;
-        case COLOR_FADING_BLUE: string->SetColor(sf::Color(128, 128, 255, (sf::Uint8)(getFade() * 255))); break;
-        case COLOR_FADING_WHITE: string->SetColor(sf::Color(255, 255, 255, (sf::Uint8)(getFade() * 255))); break;
-        case COLOR_BLINKING_WHITE: string->SetColor(sf::Color(255, 255, 255, (sf::Uint8)((1.0f + cosf(age * 4.0f)) * 127.0f))); break;
+        case COLOR_BLUE: string->setColor(sf::Color(0, 0, 255, 255)); break;
+        case COLOR_RED: string->setColor(sf::Color(255, 0, 0, 255)); break;
+        case COLOR_GREEN: string->setColor(sf::Color(0, 255, 0, 255)); break;
+        case COLOR_FADING_BLUE: string->setColor(sf::Color(128, 128, 255, (sf::Uint8)(getFade() * 255))); break;
+        case COLOR_FADING_WHITE: string->setColor(sf::Color(255, 255, 255, (sf::Uint8)(getFade() * 255))); break;
+        case COLOR_BLINKING_WHITE: string->setColor(sf::Color(255, 255, 255, (sf::Uint8)((1.0f + cosf(age * 4.0f)) * 127.0f))); break;
 
-        default: string->SetColor(sf::Color(255, 255, 255, 255)); break;
+        default: string->setColor(sf::Color(255, 255, 255, 255)); break;
     }
 }

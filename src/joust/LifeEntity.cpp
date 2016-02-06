@@ -20,7 +20,7 @@
 #include "LifeEntity.h"
 #include "Constants.h"
 
-LifeEntity::LifeEntity(sf::Image* image, float x, float y, int lives)
+LifeEntity::LifeEntity(sf::Texture* image, float x, float y, int lives)
                                     : SpriteEntity(image, x, y, LIFE_WIDTH, LIFE_HEIGHT)
 {
     this->lives = lives;
@@ -42,9 +42,8 @@ void LifeEntity::render(sf::RenderWindow* app)
 
     for (int i = 0; i < lives_to_show; i++)
     {
-        sprite.SetX(x + (float)(i * 21));
-        sprite.SetY(y);
-        app->Draw(sprite);
+        sprite.setPosition(x + (float)(i * 21), y);
+        app->draw(sprite);
     }
 
     if (lives > 4)
@@ -54,16 +53,15 @@ void LifeEntity::render(sf::RenderWindow* app)
         std::ostringstream intStream;
         intStream << "+" << lives_to_write;
 
-        sf::String string;
+        sf::Text string;
 
-        string.SetText(intStream.str());
-        string.SetSize(17);
-        string.SetColor(sf::Color(128, 128, 255, 255));
+        string.setString(intStream.str());
+        string.setCharacterSize(17);
+        string.setColor(sf::Color(128, 128, 255, 255));
 
-        string.SetX(x + 3 * 20 - 4);
-        string.SetY(y - string.GetRect().GetHeight() / 2 - 2);
+        string.setPosition(x + 3 * 20 - 4, y - string.getGlobalBounds().height / 2 - 2);
 
-        app->Draw(string);
+        app->draw(string);
     }
 }
 

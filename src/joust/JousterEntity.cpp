@@ -21,7 +21,7 @@
 #include "LogicEngine.h"
 #include "Constants.h"
 
-JousterEntity::JousterEntity(sf::Image* image, int spriteType, float x, float y)
+JousterEntity::JousterEntity(sf::Texture* image, int spriteType, float x, float y)
                                     : CollidingSpriteEntity(image, x, y, JOUSTER_WIDTH, JOUSTER_HEIGHT)
 {
     this->spriteType = spriteType;
@@ -60,30 +60,36 @@ void JousterEntity::setSpeed(int speed)
 
 void JousterEntity::render(sf::RenderWindow* app)
 {
-    if ((int)velocity.x < 0) dirRight = false;
-    if ((int)velocity.x > 0) dirRight = true;
+    if ((int)velocity.x < 0)
+    {
+        sprite.setScale(-1, 1);
+        dirRight = false;
+    }
+    if ((int)velocity.x > 0)
+    {
+        sprite.setScale(1, 1);
+        dirRight = true;
+    }
 
     // rendering the mount
     findFrame();
-    sprite.FlipX(!dirRight);
     //CollidingSpriteEntity::render(app);
-    sprite.SetSubRect(sf::IntRect(frame * width, 0, (frame + 1) * width, height));
-    sprite.SetX(x);
-    sprite.SetY(y);
-    if (frame == 5) sprite.SetY(y + 4.0f);
+    sprite.setTextureRect(sf::IntRect(frame * width, 0, width, height));
+//    sprite.setTextureRect(sf::IntRect(frame * width, 0, (frame + 1) * width, height));
+    sprite.setPosition(x, (frame == 5) ? y + 4.0f : y);
 
-    app->Draw(sprite);
+    app->draw(sprite);
 
 
     // rendering the rider
     int dx = 0;
-    sprite.FlipX(false);
+    sprite.setScale(1, 1);
     if (!dirRight) dx = width;
-    sprite.SetSubRect(sf::IntRect(dx, height, dx + width, 2 * height));
+    sprite.setTextureRect(sf::IntRect(dx, height, width, height));
     //if (frame == 0) sprite.SetY(y - 4.0f);
     //if (frame >= 6 && frame <= 8) sprite.SetY(y + 3.0f);
 
-    app->Draw(sprite);
+    app->draw(sprite);
 }
 
 void JousterEntity::animate(float delay)
@@ -182,10 +188,10 @@ void JousterEntity::animate(float delay)
 
 void JousterEntity::calculateBB()
 {
-    boundingBox.Left = (int)x - BB_LEFT;
-    boundingBox.Right = (int)x + BB_RIGHT;
-    boundingBox.Top = (int)y - BB_TOP;
-    boundingBox.Bottom = (int)y + BB_BOTTOM;
+    boundingBox.left = (int)x - BB_LEFT;
+    boundingBox.width = BB_LEFT + BB_RIGHT;
+    boundingBox.top = (int)y - BB_TOP;
+    boundingBox.height = BB_TOP + BB_BOTTOM;
 }
 
 void JousterEntity::exitMap(int direction)
@@ -356,7 +362,7 @@ void JousterEntity::findFrame()
 
 bool JousterEntity::collidingWithLava()
 {
-    if (boundingBox.Bottom > (tileHeight - 2) * map->getHeight() + TILE_HEIGHT) return true;
+    if (boundingBox.top + boundingBox.height > (tileHeight - 2) * map->getHeight() + TILE_HEIGHT) return true;
     return false;
 }
 

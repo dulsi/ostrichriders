@@ -17,7 +17,7 @@
 #include "FallingRiderEntity.h"
 #include "Constants.h"
 
-FallingRiderEntity::FallingRiderEntity(sf::Image* image, float x, float y)
+FallingRiderEntity::FallingRiderEntity(sf::Texture* image, float x, float y)
                         : SpriteEntity(image, x, y, JOUSTER_WIDTH, JOUSTER_HEIGHT)
 {
     lifetime = REBORN_DELAY / 4;
@@ -30,22 +30,27 @@ FallingRiderEntity::~FallingRiderEntity()
 
 void FallingRiderEntity::render(sf::RenderWindow* app)
 {
-    if ((int)velocity.x < 0) sprite.FlipX(true);
-    if ((int)velocity.x > 0) sprite.FlipX(false);
+    if ((int)velocity.x < 0)
+    {
+        sprite.setScale(-1, 1);
+    }
+    if ((int)velocity.x > 0)
+    {
+        sprite.setScale(1, 1);
+    }
 
-    sprite.SetSubRect(sf::IntRect(0, height, width, 2 * height));
-    sprite.SetX(x);
-    sprite.SetY(y);
-    sprite.SetRotation(angle);
-    sprite.SetColor(sf::Color(255, 255, 255, (sf::Uint8)(getFade() * 255)));
-    app->Draw(sprite);
+    sprite.setTextureRect(sf::IntRect(0, height, width, height));
+    sprite.setPosition(x, y);
+    sprite.setRotation(angle);
+    sprite.setColor(sf::Color(255, 255, 255, (sf::Uint8)(getFade() * 255)));
+    app->draw(sprite);
 }
 
 void FallingRiderEntity::setMirror(bool mirror)
 {
     if (mirror)
     {
-        sprite.FlipX(true);
+        sprite.setScale(-1, 1);
         setSpin(-50);
     }
     else

@@ -22,8 +22,9 @@
 
 #include "Constants.h"
 #include "FlyingScoreEntity.h"
+#include "../defaultfont.h"
 
-FlyingScoreEntity::FlyingScoreEntity(float x, float y, int intText) : TextEntity(&sf::Font::GetDefaultFont(), 17, x, y)
+FlyingScoreEntity::FlyingScoreEntity(float x, float y, int intText) : TextEntity(&OstrichRiders::GetDefaultFont(), 17, x, y)
 {
     setText(intText);
     setWeight(-60);
@@ -32,7 +33,7 @@ FlyingScoreEntity::FlyingScoreEntity(float x, float y, int intText) : TextEntity
     setLifetime(2.0f);
 }
 
-FlyingScoreEntity::FlyingScoreEntity(float x, float y, int intText, int combo) : TextEntity(&sf::Font::GetDefaultFont(), 16 + combo, x, y)
+FlyingScoreEntity::FlyingScoreEntity(float x, float y, int intText, int combo) : TextEntity(&OstrichRiders::GetDefaultFont(), 16 + combo, x, y)
 {
     //std::string str = "(x";
 
@@ -53,7 +54,7 @@ FlyingScoreEntity::FlyingScoreEntity(float x, float y, int intText, int combo) :
     setLifetime(2.0f);
 }
 
-FlyingScoreEntity::FlyingScoreEntity(float x, float y, std::string text): TextEntity(&sf::Font::GetDefaultFont(), 18, x, y)
+FlyingScoreEntity::FlyingScoreEntity(float x, float y, std::string text): TextEntity(&OstrichRiders::GetDefaultFont(), 18, x, y)
 {
     setText(text);
     setWeight(-60);

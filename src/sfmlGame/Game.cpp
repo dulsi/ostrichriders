@@ -19,6 +19,8 @@
 #include "Entity/GameEntity.h"
 #include "Entity/EntityManager.h"
 
+static sf::Clock clockTime;
+
 Game::Game(int screenWidth, int screenHeight, std::string windowsTitle, bool fullScreen)
 {
     this->screenWidth = screenWidth;
@@ -28,7 +30,7 @@ Game::Game(int screenWidth, int screenHeight, std::string windowsTitle, bool ful
         app = new sf::RenderWindow(sf::VideoMode(this->screenWidth, this->screenHeight), windowsTitle, sf::Style::Fullscreen);
     else
         app = new sf::RenderWindow(sf::VideoMode(this->screenWidth, this->screenHeight), windowsTitle); // , sf::Style::Close);
-    app->SetFramerateLimit(60);
+    app->setFramerateLimit(60);
 }
 
 Game::~Game()
@@ -39,14 +41,13 @@ Game::~Game()
 
 float Game::getAbsolutTime()
 {
-    static sf::Clock clock;
-    return clock.GetElapsedTime();
+    return clockTime.getElapsedTime().asSeconds();
 }
 
 void Game::startGame()
 {
     // Start game loop
-    while (app->IsOpened())
+    while (app->isOpen())
     {
 
 
@@ -54,12 +55,12 @@ void Game::startGame()
         // Process events
         sf::Event event;
 
-        while (app->GetEvent(event))
+        while (app->pollEvent(event))
         {
 
             // Close window : exit
-            if (event.Type == sf::Event::Closed)
-                app->Close();
+            if (event.type == sf::Event::Closed)
+                app->close();
 
         }
 
@@ -78,16 +79,16 @@ void Game::quitGame()
 void Game::onRender()
 {
     // clear the view
-    app->Clear(sf::Color(32, 32, 32));
+    app->clear(sf::Color(32, 32, 32));
 
     // render the game objects
     EntityManager::getEntityManager()->render(app);
 
-    app->Display();
+    app->display();
 }
 
 void Game::onUpdate()
 {
-    EntityManager::getEntityManager()->animate(app->GetFrameTime());
+    EntityManager::getEntityManager()->animate(clockTime.restart().asSeconds());
 }
 

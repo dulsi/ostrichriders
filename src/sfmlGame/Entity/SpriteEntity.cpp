@@ -16,16 +16,16 @@
 
 #include "SpriteEntity.h"
 
-SpriteEntity::SpriteEntity(sf::Image* image, float x, float y, int width, int height, int imagesProLine) : GameEntity(x, y)
+SpriteEntity::SpriteEntity(sf::Texture* image, float x, float y, int width, int height, int imagesProLine) : GameEntity(x, y)
 {
     frame = 0;
     isFading = false;
     this->image = image;
-    sprite.SetImage(*image);
-    this->width  = width  <= 0 ? image->GetWidth()  : width;
-    this->height = height <= 0 ? image->GetHeight() : height;
+    sprite.setTexture(*image);
+    this->width  = width  <= 0 ? image->getSize().x  : width;
+    this->height = height <= 0 ? image->getSize().y : height;
     //sprite.SetSubRect(sf::IntRect(0, 0, this->width, this->height));
-    sprite.SetCenter((float)(this->width / 2), (float)(this->height / 2));
+    sprite.setOrigin((float)(this->width / 2), (float)(this->height / 2));
     this->imagesProLine = imagesProLine;
 }
 
@@ -47,18 +47,17 @@ void SpriteEntity::render(sf::RenderWindow* app)
         ny = frame / imagesProLine;
     }
 
-    sprite.SetSubRect(sf::IntRect(nx * width, ny * height, (nx + 1) * width, (ny + 1) * height));
+    sprite.setTextureRect(sf::IntRect(nx * width, ny * height, width, height));
 
-    sprite.SetX(x);
-    sprite.SetY(y);
-    sprite.SetRotation(angle);
+    sprite.setPosition(x, y);
+    sprite.setRotation(angle);
 
     if (isFading)
     {
-        sprite.SetColor(sf::Color(255, 255, 255, (sf::Uint8)(getFade() * 255)));
+        sprite.setColor(sf::Color(255, 255, 255, (sf::Uint8)(getFade() * 255)));
     }
 
-    app->Draw(sprite);
+    app->draw(sprite);
 }
 
 void SpriteEntity::animate(float delay)

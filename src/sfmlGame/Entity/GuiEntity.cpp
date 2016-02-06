@@ -37,5 +37,5 @@ void GuiEntity::animate(float delay)
 
 void GuiEntity::onEvent(sf::Event event)
 {
-    if (event.Type == sf::Event::Closed) return;
+    if (event.type == sf::Event::Closed) return;
 }

@@ -21,10 +21,10 @@
 #include "../sfmlGame/MediaManagers/ImageManager.h"
 #include "../sfmlGame/Entity/SpriteEntity.h"
 
-JoustTileMapEntity::JoustTileMapEntity(sf::Image* image, GameMap* gameMap, int tileWidth, int tileHeight, int tilesProLine)
+JoustTileMapEntity::JoustTileMapEntity(sf::Texture* image, GameMap* gameMap, int tileWidth, int tileHeight, int tilesProLine)
         : TileMapEntity(image, gameMap, tileWidth, tileHeight, tilesProLine)
 {
-    backgroundSprite.SetImage(*ImageManager::getImageManager()->getImage(IMAGE_BACKGROUND));
+    backgroundSprite.setTexture(*ImageManager::getImageManager()->getImage(IMAGE_BACKGROUND));
 }
 
 JoustTileMapEntity::~JoustTileMapEntity()
@@ -34,15 +34,14 @@ JoustTileMapEntity::~JoustTileMapEntity()
 void JoustTileMapEntity::render(sf::RenderWindow* app)
 {
     sf::Sprite tileSprite;
-    tileSprite.SetImage(*image);
+    tileSprite.setTexture(*image);
 
-    app->Draw(backgroundSprite);
+    app->draw(backgroundSprite);
 
     for (int i = 0; i < gameMap->getWidth(); i++)
         for (int j = 0; j < gameMap->getHeight(); j++)
         {
-            tileSprite.SetX(x + (float)(i * tileWidth));
-            tileSprite.SetY(y + (float)(j * tileHeight));
+            tileSprite.setPosition(x + (float)(i * tileWidth), y + (float)(j * tileHeight));
             int nx = gameMap->getTile(i, j) % tilesProLine;
             int ny = gameMap->getTile(i, j) / tilesProLine;
 
@@ -53,10 +52,10 @@ void JoustTileMapEntity::render(sf::RenderWindow* app)
                 if (nx > TILE_FIRE_OUT) nx -= TILE_FIRE_OUT - TILE_FIRE_IN + 1;
             }
 
-            tileSprite.SetSubRect(sf::IntRect( nx * tileWidth, ny * tileHeight,
-                                                (nx + 1) * tileWidth, (ny + 1) * tileHeight));
+            tileSprite.setTextureRect(sf::IntRect( nx * tileWidth, ny * tileHeight,
+                                                tileWidth, tileHeight));
 
-            app->Draw(tileSprite);
+            app->draw(tileSprite);
         }
 }
 

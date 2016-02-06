@@ -25,7 +25,7 @@ class TileMapEntity : public GameEntity
 {
 public:
     // create a sprite with the entire image
-    TileMapEntity(sf::Image* image, GameMap* gameMap, int tileWidth, int tileHeight, int tilesProLine);
+    TileMapEntity(sf::Texture* image, GameMap* gameMap, int tileWidth, int tileHeight, int tilesProLine);
     ~TileMapEntity();
 
     int getTilesProLine();
@@ -40,7 +40,7 @@ protected:
     int tileHeight;
     int tilesProLine;
 
-    sf::Image* image;
+    sf::Texture* image;
     GameMap* gameMap;
 };
 

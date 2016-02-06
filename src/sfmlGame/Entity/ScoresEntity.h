@@ -34,7 +34,7 @@ public:
 
 protected:
     int size;   // police's size
-    sf::String* string;
+    sf::Text* string;
     float xf;   // right limit
     float dy;   // intervale between two lines
     GameScores* gameScores;

@@ -21,7 +21,7 @@
 
 TextEntity::TextEntity(const sf::Font* font, int size, float x, float y) : GameEntity(x, y)
 {
-    string = new sf::String(L"", *font, (float)size);
+    string = new sf::Text(L"", *font, (float)size);
     alignment = ALIGN_LEFT;
     colorType = COLOR_WHITE;
 }
@@ -30,7 +30,7 @@ void TextEntity::render(sf::RenderWindow* app)
 {
     align();
     applyColor();
-    app->Draw(*string);
+    app->draw(*string);
 }
 
 void TextEntity::animate(float delay)
@@ -40,19 +40,19 @@ void TextEntity::animate(float delay)
 
 void TextEntity::setText(std::wstring text)
 {
-    string->SetText(text);
+    string->setString(text);
 }
 
 void TextEntity::setText(std::string text)
 {
-    string->SetText(text);
+    string->setString(text);
 }
 
 void TextEntity::setText(int intText)
 {
     std::ostringstream intStream;
     intStream << intText;
-    string->SetText(intStream.str());
+    string->setString(intStream.str());
 }
 
 void TextEntity::setColor(int colorType)
@@ -70,17 +70,17 @@ void TextEntity::align()
     switch (alignment)
     {
         case ALIGN_LEFT:
-        string->SetPosition(x, y - string->GetRect().GetHeight() / 2);
+        string->setPosition(x, y - string->getGlobalBounds().height / 2);
         break;
 
         case ALIGN_CENTER:
-        string->SetPosition( x - string->GetRect().GetWidth() / 2,
-                             y - string->GetRect().GetHeight() / 2);
+        string->setPosition( x - string->getGlobalBounds().width / 2,
+                             y - string->getGlobalBounds().height / 2);
         break;
 
         case ALIGN_RIGHT:
-        string->SetPosition( x - string->GetRect().GetWidth(),
-                             y - string->GetRect().GetHeight() / 2);
+        string->setPosition( x - string->getGlobalBounds().width,
+                             y - string->getGlobalBounds().height / 2);
         break;
     }
 }
@@ -89,13 +89,13 @@ void TextEntity::applyColor()
 {
     switch (colorType)
     {
-        case COLOR_BLUE: string->SetColor(sf::Color(0, 0, 255, 255)); break;
-        case COLOR_RED: string->SetColor(sf::Color(255, 0, 0, 255)); break;
-        case COLOR_GREEN: string->SetColor(sf::Color(0, 255, 0, 255)); break;
-        case COLOR_FADING_BLUE: string->SetColor(sf::Color(128, 128, 255, (sf::Uint8)(getFade() * 255))); break;
-        case COLOR_FADING_WHITE: string->SetColor(sf::Color(255, 255, 255, (sf::Uint8)(getFade() * 255))); break;
-        case COLOR_BLINKING_WHITE: string->SetColor(sf::Color(255, 255, 255, (sf::Uint8)((1.0f + cosf(age * 4.0f)) * 127.0f))); break;
+        case COLOR_BLUE: string->setColor(sf::Color(0, 0, 255, 255)); break;
+        case COLOR_RED: string->setColor(sf::Color(255, 0, 0, 255)); break;
+        case COLOR_GREEN: string->setColor(sf::Color(0, 255, 0, 255)); break;
+        case COLOR_FADING_BLUE: string->setColor(sf::Color(128, 128, 255, (sf::Uint8)(getFade() * 255))); break;
+        case COLOR_FADING_WHITE: string->setColor(sf::Color(255, 255, 255, (sf::Uint8)(getFade() * 255))); break;
+        case COLOR_BLINKING_WHITE: string->setColor(sf::Color(255, 255, 255, (sf::Uint8)((1.0f + cosf(age * 4.0f)) * 127.0f))); break;
 
-        default: string->SetColor(sf::Color(255, 255, 255, 255)); break;
+        default: string->setColor(sf::Color(255, 255, 255, 255)); break;
     }
 }

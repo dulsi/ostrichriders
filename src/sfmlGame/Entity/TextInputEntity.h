@@ -58,7 +58,7 @@ protected:
    unsigned int sizeMax;
    bool isReturned;
 
-    sf::String* string;
+    sf::Text* string;
     int size;
     int alignment;
     int colorType;

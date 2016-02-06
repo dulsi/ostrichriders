@@ -22,7 +22,7 @@
 class EggEntity : public CollidingSpriteEntity
 {
 public:
-    EggEntity(sf::Image* image, float x = 0.0f, float y = 0.0f);
+    EggEntity(sf::Texture* image, float x = 0.0f, float y = 0.0f);
     ~EggEntity();
 
     int getEggType();

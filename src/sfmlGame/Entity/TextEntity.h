@@ -45,7 +45,7 @@ public:
                          COLOR_BLINKING_WHITE };
 
 protected:
-    sf::String* string;
+    sf::Text* string;
     int size;
     int alignment;
     int colorType;

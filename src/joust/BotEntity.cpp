@@ -22,7 +22,7 @@
 #include "FlyingScoreEntity.h"
 #include "../sfmlGame/MediaManagers/ImageManager.h"
 
-BotEntity::BotEntity(sf::Image* image, float x, float y, int aiType)
+BotEntity::BotEntity(sf::Texture* image, float x, float y, int aiType)
                                                     : JousterEntity(image, JousterEntity::SPRITE_ENNEMY, x, y)
 {
     this->aiType = aiType;
@@ -46,9 +46,9 @@ void BotEntity::render(sf::RenderWindow* app)
     if (age < JOUSTER_LATENCY / 2)
         return;
     else if (age < JOUSTER_LATENCY)
-        sprite.SetColor(sf::Color(255, 255, 255, (sf::Uint8)(200.0f * age)));
+        sprite.setColor(sf::Color(255, 255, 255, (sf::Uint8)(200.0f * age)));
     else // TODO
-        sprite.SetColor(sf::Color(255, 255, 255, 255 ));
+        sprite.setColor(sf::Color(255, 255, 255, 255 ));
     JousterEntity::render(app);
 }
 
@@ -124,7 +124,7 @@ void BotEntity::animate(float delay)
     }
 
     // avoiding lava
-    if ((float)(boundingBox.Bottom) > (float)(tileHeight - 2) * (float)(map->getHeight()) + 5.0f) wannaJump = true;
+    if ((float)(boundingBox.top + boundingBox.height) > (float)(tileHeight - 2) * (float)(map->getHeight()) + 5.0f) wannaJump = true;
 
     if (aiType == 1) repulse(40000.0f);
     if (aiType == 2) repulse(60000.0f);
@@ -220,7 +220,7 @@ void BotEntity::collideEntity(CollidingSpriteEntity* entity)
 
 bool BotEntity::repulse(float maxDist2)
 {
-    sprite.SetColor(sf::Color(255, 255 ,255, 255));
+    sprite.setColor(sf::Color(255, 255 ,255, 255));
 
     // find the closest player
     int closestPlayer = -1;
@@ -253,7 +253,7 @@ bool BotEntity::repulse(float maxDist2)
 
     if (yPlayer < y)
     {
-        sprite.SetColor(sf::Color(255, 122 ,122, 255));
+        sprite.setColor(sf::Color(255, 122 ,122, 255));
         if (xPlayer >= x/* && playerEntity->getVelocity().x < 0.0f*/)
         {
             if (dist2 >= JOUSTER_WIDTH * JOUSTER_WIDTH)
@@ -281,7 +281,7 @@ bool BotEntity::repulse(float maxDist2)
     }
     else
     {
-        sprite.SetColor(sf::Color(122, 122 ,255, 255));
+        sprite.setColor(sf::Color(122, 122 ,255, 255));
         if (xPlayer > x/* && playerEntity->getVelocity().x < 0.0f*/)
         {
             isLeftDirection = false;

@@ -36,17 +36,16 @@ void GateEntity::render(sf::RenderWindow* app)
     float fade = getFade();
     float part = fade > 0.5f ? 1.0f - fade : fade;
 
-    sprite.SetSubRect(sf::IntRect(0, 0, width, (int)(2.0f * (float)height * part)));
+    sprite.setTextureRect(sf::IntRect(0, 0, width, (int)(2.0f * (float)height * part)));
 
-    sprite.SetX(x);
-    sprite.SetY(y - (float)height * part * 2.0f + (float)height );
-    sprite.SetRotation(angle);
+    sprite.setPosition(x, y - (float)height * part * 2.0f + (float)height );
+    sprite.setRotation(angle);
     int alpha = 180 + (int)(75.0f * cosf(age * 22.0f));
     if (gateColor == GATE_RED)
-        sprite.SetColor(sf::Color(255, 64, 64, (sf::Uint8)alpha));
+        sprite.setColor(sf::Color(255, 64, 64, (sf::Uint8)alpha));
     else
-        sprite.SetColor(sf::Color(64, 64, 255, (sf::Uint8)alpha));
-    app->Draw(sprite);
+        sprite.setColor(sf::Color(64, 64, 255, (sf::Uint8)alpha));
+    app->draw(sprite);
 }
 
 //void GateEntity::animate(float delay)

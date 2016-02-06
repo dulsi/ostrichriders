@@ -22,7 +22,7 @@
 class BotEntity : public JousterEntity
 {
 public:
-    BotEntity(sf::Image* image, float x = 0.0f, float y = 0.0f, int aiType = 0);
+    BotEntity(sf::Texture* image, float x = 0.0f, float y = 0.0f, int aiType = 0);
     ~BotEntity();
 
     virtual void render(sf::RenderWindow* app);

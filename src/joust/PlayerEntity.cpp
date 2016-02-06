@@ -21,7 +21,7 @@
 #include "FlyingScoreEntity.h"
 #include "../sfmlGame/MediaManagers/ImageManager.h"
 
-PlayerEntity::PlayerEntity(sf::Image* image, float x, float y, int playerNumber)
+PlayerEntity::PlayerEntity(sf::Texture* image, float x, float y, int playerNumber)
                                                     : JousterEntity(image, JousterEntity::SPRITE_HERO, x, y)
 {
     this->playerNumber = playerNumber;
@@ -49,9 +49,9 @@ void PlayerEntity::render(sf::RenderWindow* app)
     if (age < JOUSTER_LATENCY / 2)
         return;
     else if (age < JOUSTER_LATENCY)
-        sprite.SetColor(sf::Color(255, 255, 255, sf::Uint8(200.0f * age)));
+        sprite.setColor(sf::Color(255, 255, 255, sf::Uint8(200.0f * age)));
     else
-        sprite.SetColor(sf::Color(255, 255, 255, 255 ));
+        sprite.setColor(sf::Color(255, 255, 255, 255 ));
     JousterEntity::render(app);
 }
 
@@ -173,7 +173,7 @@ void PlayerEntity::collideLava()
     fallInLava();
     for (int i = 0; i < 16; i++)
     {
-        SpriteEntity* part = new SpriteEntity(ImageManager::getImageManager()->getImage(IMAGE_BLACK_PART), x, (float)(boundingBox.Bottom - 5));
+        SpriteEntity* part = new SpriteEntity(ImageManager::getImageManager()->getImage(IMAGE_BLACK_PART), x, (float)(boundingBox.top + boundingBox.height - 5));
         part->setLifetime(1.0f);
         part->setFading(true);
         part->setVelocity(Vector2D(-30.0f + (float)rand() / (float)RAND_MAX * 60.0f,

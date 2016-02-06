@@ -45,7 +45,7 @@ public:
     void playSound(int sound);
 
 protected:
-    sf::String* string;
+    sf::Text* string;
 
     float dy; // vertical distance between 2 menu entries
     int currentItem;

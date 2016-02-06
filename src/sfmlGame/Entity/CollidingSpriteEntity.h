@@ -24,7 +24,7 @@
 class CollidingSpriteEntity : public SpriteEntity
 {
 public:
-    CollidingSpriteEntity(sf::Image* image, float x = 0.0f, float y = 0.0f, int width = -1, int height = -1);
+    CollidingSpriteEntity(sf::Texture* image, float x = 0.0f, float y = 0.0f, int width = -1, int height = -1);
     ~CollidingSpriteEntity();
 
     GameMap* getMap();

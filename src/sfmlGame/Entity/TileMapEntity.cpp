@@ -16,7 +16,7 @@
 
 #include "TileMapEntity.h"
 
-TileMapEntity::TileMapEntity(sf::Image* image, GameMap* gameMap, int tileWidth, int tileHeight, int tilesProLine)
+TileMapEntity::TileMapEntity(sf::Texture* image, GameMap* gameMap, int tileWidth, int tileHeight, int tilesProLine)
     : GameEntity(0.0f, 0.0f)
 {
     this->image = image;
@@ -38,21 +38,20 @@ int TileMapEntity::getTilesProLine()
 void TileMapEntity::render(sf::RenderWindow* app)
 {
     sf::Sprite tileSprite;
-    tileSprite.SetImage(*image);
+    tileSprite.setTexture(*image);
 
     for (int i = 0; i < gameMap->getWidth(); i++)
         for (int j = 0; j < gameMap->getHeight(); j++)
         {
-            tileSprite.SetX(x + (float)(i * tileWidth));
-            tileSprite.SetY(y + (float)(j * tileHeight));
+            tileSprite.setPosition(x + (float)(i * tileWidth), y + (float)(j * tileHeight));
             int nx = gameMap->getTile(i, j) % tilesProLine;
             int ny = gameMap->getTile(i, j) / tilesProLine;
 
 
-            tileSprite.SetSubRect(sf::IntRect( nx * tileWidth, ny * tileHeight,
-                                                (nx + 1) * tileWidth, (ny + 1) * tileHeight));
+            tileSprite.setTextureRect(sf::IntRect( nx * tileWidth, ny * tileHeight,
+                                                tileWidth, tileHeight));
 
-            app->Draw(tileSprite);
+            app->draw(tileSprite);
         }
 }
 

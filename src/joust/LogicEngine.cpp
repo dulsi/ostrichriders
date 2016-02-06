@@ -28,6 +28,7 @@
 #include "EggEntity.h"
 #include "GateEntity.h"
 #include "FlyingScoreEntity.h"
+#include "../defaultfont.h"
 
 
 const char* getLevelString(int level)
@@ -113,33 +114,33 @@ void LogicEngine::startIntro()
     gameState = GAME_INTRO;
     menuState = MENU_STATE_MAIN;
 
-    new ScoresEntity(&sf::Font::GetDefaultFont(), 17, gameScores, 30.f, 475.f, 242.f, 27.f);
-    menuEntity = new MenuEntity(&sf::Font::GetDefaultFont(), 20, mainMenu, 512.f, 502.f, 42.f);
+    new ScoresEntity(&OstrichRiders::GetDefaultFont(), 17, gameScores, 30.f, 475.f, 242.f, 27.f);
+    menuEntity = new MenuEntity(&OstrichRiders::GetDefaultFont(), 20, mainMenu, 512.f, 502.f, 42.f);
     menuEntity->setMoveSound(SOUND_MENU_MOVE);
 
-    TextEntity* te0 = new TextEntity(&sf::Font::GetDefaultFont(), 20, 880.f, 477.f);
+    TextEntity* te0 = new TextEntity(&OstrichRiders::GetDefaultFont(), 20, 880.f, 477.f);
     te0->setText("Ostrich Riders V0.6.1");
     te0->setAlignment(TextEntity::ALIGN_CENTER);
 
-    TextEntity* te1 = new TextEntity(&sf::Font::GetDefaultFont(), 18 , 770.f, 520.f);
+    TextEntity* te1 = new TextEntity(&OstrichRiders::GetDefaultFont(), 18 , 770.f, 520.f);
     te1->setText("Code: Seby");
 
-    TextEntity* te2 = new TextEntity(&sf::Font::GetDefaultFont(), 18 , 770.f, 550.f);
+    TextEntity* te2 = new TextEntity(&OstrichRiders::GetDefaultFont(), 18 , 770.f, 550.f);
     te2->setText("Art: Suiland");
 
-    TextEntity* te3 = new TextEntity(&sf::Font::GetDefaultFont(), 18 , 770.f, 580.f);
+    TextEntity* te3 = new TextEntity(&OstrichRiders::GetDefaultFont(), 18 , 770.f, 580.f);
     te3->setText("Released under GPLv3");
 
-    TextEntity* te4 = new TextEntity(&sf::Font::GetDefaultFont(), 18 , 770.f, 620.f);
+    TextEntity* te4 = new TextEntity(&OstrichRiders::GetDefaultFont(), 18 , 770.f, 620.f);
     te4->setText(" - Controls for player 1");
 
-    TextEntity* te5 = new TextEntity(&sf::Font::GetDefaultFont(), 18 , 770.f, 650.f);
+    TextEntity* te5 = new TextEntity(&OstrichRiders::GetDefaultFont(), 18 , 770.f, 650.f);
     te5->setText("[S][D] (move) - [J] (jump)");
 
-    TextEntity* te6 = new TextEntity(&sf::Font::GetDefaultFont(), 18 , 770.f, 680.f);
+    TextEntity* te6 = new TextEntity(&OstrichRiders::GetDefaultFont(), 18 , 770.f, 680.f);
     te6->setText(" - Controls for player 2");
 
-    TextEntity* te7 = new TextEntity(&sf::Font::GetDefaultFont(), 18 , 770.f, 710.f);
+    TextEntity* te7 = new TextEntity(&OstrichRiders::GetDefaultFont(), 18 , 770.f, 710.f);
     te7->setText("Arrows - [Return] (jump)");
 
     //te0->setColor(TextEntity::COLOR_WHITE);
@@ -158,7 +159,7 @@ void LogicEngine::startChoosing()
 
 
     // text (TODO: internationalisation)
-    TextEntity* chooseTextEntity = new TextEntity(&sf::Font::GetDefaultFont(), 40, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 150);
+    TextEntity* chooseTextEntity = new TextEntity(&OstrichRiders::GetDefaultFont(), 40, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 150);
     chooseTextEntity->setText("Choose your character");
     chooseTextEntity->setAlignment(TextEntity::ALIGN_CENTER);
     chooseTextEntity->setColor(TextEntity::COLOR_WHITE);
@@ -169,7 +170,7 @@ void LogicEngine::startChoosing()
 void LogicEngine::startGame(int nPlayers)
 {
     // disable repeat key (for jump)
-    app->EnableKeyRepeat(false);
+    app->setKeyRepeatEnabled(false);
     isPause = false;
 
     printf("Starting the game\n");
@@ -253,9 +254,9 @@ void LogicEngine::startGame(int nPlayers)
 
     // hud texts
     float yText = 730.0f;
-    TextEntity* text1 = new TextEntity(&sf::Font::GetDefaultFont(), 24, 15.0f, yText);
+    TextEntity* text1 = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 15.0f, yText);
     text1->setText(L"Player 1");
-    scoreEntity[0] = new TextEntity(&sf::Font::GetDefaultFont(), 24, 245.0f, yText);
+    scoreEntity[0] = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 245.0f, yText);
     scoreEntity[0]->setText(0);
     scoreEntity[0]->setAlignment(TextEntity::ALIGN_RIGHT);
 
@@ -263,23 +264,23 @@ void LogicEngine::startGame(int nPlayers)
 
     if (nPlayers > 1)
     {
-        TextEntity* text2 = new TextEntity(&sf::Font::GetDefaultFont(), 24, 925.0f, yText);
+        TextEntity* text2 = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 925.0f, yText);
         text2->setText(L"Player 2");
-        scoreEntity[1] = new TextEntity(&sf::Font::GetDefaultFont(), 24, 902.0f, yText);
+        scoreEntity[1] = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 902.0f, yText);
         scoreEntity[1]->setText(0);
         scoreEntity[1]->setAlignment(TextEntity::ALIGN_RIGHT);
 
         lifeEntity[1] = new LifeEntity(ImageManager::getImageManager()->getImage(IMAGE_LIFE1), 690.0f, yText + 3, lives[1]);
     }
 
-    TextEntity* text3 = new TextEntity(&sf::Font::GetDefaultFont(), 24, 385.0f, yText);
+    TextEntity* text3 = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 385.0f, yText);
     text3->setText(L"Wave");
-    levelEntity = new TextEntity(&sf::Font::GetDefaultFont(), 24, 454.0f, yText);
+    levelEntity = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 454.0f, yText);
     levelEntity->setText(1);
 
-    TextEntity* text4 = new TextEntity(&sf::Font::GetDefaultFont(), 24, 528.0f, yText);
+    TextEntity* text4 = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 528.0f, yText);
     text4->setText(L"Bonus");
-    levelTimeEntity = new TextEntity(&sf::Font::GetDefaultFont(), 24, 608.0f, yText);
+    levelTimeEntity = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 608.0f, yText);
     levelTimeEntity->setText(0);
 
     gameScores->resetNewScores();
@@ -378,7 +379,7 @@ void LogicEngine::startLevel()
     isCooperative = true;
 
     TextEntity* waveText = new TextEntity
-                                        (&sf::Font::GetDefaultFont(), 48, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+                                        (&OstrichRiders::GetDefaultFont(), 48, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
     std::ostringstream levelStream;
     levelStream << "WAVE " << level;
     waveText->setText(levelStream.str());
@@ -410,15 +411,15 @@ void LogicEngine::startInterlevel()
 
 
     float yNext = yTop;
-    TextEntity* text1 = new TextEntity(&sf::Font::GetDefaultFont(), 25, x1, yNext);
+    TextEntity* text1 = new TextEntity(&OstrichRiders::GetDefaultFont(), 25, x1, yNext);
     text1->setText(L"Wave annihilated");
     text1->setLifetime(INTERLEVEL_DELAY);
 
     yNext += dy;
-    TextEntity* text2 = new TextEntity(&sf::Font::GetDefaultFont(), 24, x1, yNext);
+    TextEntity* text2 = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
     text2->setText(L"Time bonus :");
     text2->setLifetime(INTERLEVEL_DELAY);
-    TextEntity* text3 = new TextEntity(&sf::Font::GetDefaultFont(), 24, x2, yNext);
+    TextEntity* text3 = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
     text3->setText(levelTimeBonus);
     text3->setLifetime(INTERLEVEL_DELAY);
 
@@ -428,10 +429,10 @@ void LogicEngine::startInterlevel()
     {
         if (isSurvivor[0])
         {
-            TextEntity* survText = new TextEntity(&sf::Font::GetDefaultFont(), 24, x1, yNext);
+            TextEntity* survText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
             survText->setText(L"Survival bonus (player 1) :");
             survText->setLifetime(INTERLEVEL_DELAY);
-            TextEntity* survScoreText = new TextEntity(&sf::Font::GetDefaultFont(), 24, x2, yNext);
+            TextEntity* survScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
             survScoreText->setText(SURVIVOR_SCORE);
             survScoreText->setLifetime(INTERLEVEL_DELAY);
             addScore(0, SURVIVOR_SCORE);
@@ -439,10 +440,10 @@ void LogicEngine::startInterlevel()
         }
         if (isSurvivor[1])
         {
-            TextEntity* survText = new TextEntity(&sf::Font::GetDefaultFont(), 24, x1, yNext);
+            TextEntity* survText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
             survText->setText(L"Survival bonus (player 2) :");
             survText->setLifetime(INTERLEVEL_DELAY);
-            TextEntity* survScoreText = new TextEntity(&sf::Font::GetDefaultFont(), 24, x2, yNext);
+            TextEntity* survScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
             survScoreText->setText(SURVIVOR_SCORE);
             survScoreText->setLifetime(INTERLEVEL_DELAY);
             addScore(1, SURVIVOR_SCORE);
@@ -450,10 +451,10 @@ void LogicEngine::startInterlevel()
         }
         if (isCooperative)
         {
-            TextEntity* coopText = new TextEntity(&sf::Font::GetDefaultFont(), 24, x1, yNext);
+            TextEntity* coopText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
             coopText->setText(L"Cooperative bonus :");
             coopText->setLifetime(INTERLEVEL_DELAY);
-            TextEntity* coopScoreText = new TextEntity(&sf::Font::GetDefaultFont(), 24, x2, yNext);
+            TextEntity* coopScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
             coopScoreText->setText(COOPERATIVE_SCORE);
             coopScoreText->setLifetime(INTERLEVEL_DELAY);
             addScore(0, COOPERATIVE_SCORE);
@@ -465,10 +466,10 @@ void LogicEngine::startInterlevel()
     {
         if (isSurvivor[0])
         {
-            TextEntity* survText = new TextEntity(&sf::Font::GetDefaultFont(), 24, x1, yNext);
+            TextEntity* survText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
             survText->setText(L"Survival bonus :");
             survText->setLifetime(INTERLEVEL_DELAY);
-            TextEntity* survScoreText = new TextEntity(&sf::Font::GetDefaultFont(), 24, x2, yNext);
+            TextEntity* survScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
             survScoreText->setText(SURVIVOR_SCORE);
             survScoreText->setLifetime(INTERLEVEL_DELAY);
             addScore(0, SURVIVOR_SCORE);
@@ -705,7 +706,7 @@ void LogicEngine::update(float dt)
                         }
                         if (mainMenu->getSelectedEntry() == MENU_MAIN_EXIT)
                         {
-                            app->Close();
+                            app->close();
                         }
                         break;
                     }
@@ -895,7 +896,7 @@ void LogicEngine::update(float dt)
                 if (delay < 0.0f)
                 {
                     TextEntity* clickText = new TextEntity
-                                                (&sf::Font::GetDefaultFont(), 24, SCREEN_WIDTH / 2, 420);
+                                                (&OstrichRiders::GetDefaultFont(), 24, SCREEN_WIDTH / 2, 420);
                     clickText->setText(L"Press a key to continue");
                     clickText->setAlignment(TextEntity::ALIGN_CENTER);
                     clickText->setColor(TextEntity::COLOR_BLINKING_WHITE);
@@ -954,7 +955,7 @@ bool LogicEngine::arePlayersDead()
 void LogicEngine::prepareGameOver()
 {
     TextEntity* gameOverText = new TextEntity
-                            (&sf::Font::GetDefaultFont(), 48, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+                            (&OstrichRiders::GetDefaultFont(), 48, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
     gameOverText->setText(L"GAME OVER");
     gameOverText->setAlignment(TextEntity::ALIGN_CENTER);
 
@@ -973,13 +974,13 @@ void LogicEngine::prepareGameOver()
 
 void LogicEngine::prepareEnterName(int player)
 {
-    app->EnableKeyRepeat(true);
+    app->setKeyRepeatEnabled(true);
 
     gameState = GAME_ENTERNAME;
     scoringPlayer = player;
 
     //if (inputEntity != NULL) delete inputEntity;
-    inputEntity = new TextInputEntity(&sf::Font::GetDefaultFont(), 20, 370.0f, 450.0f);
+    inputEntity = new TextInputEntity(&OstrichRiders::GetDefaultFont(), 20, 370.0f, 450.0f);
     switch (scoringPlayer)
     {
         case 0: inputEntity->setPreText("Player 1, enter your name: "); break;
@@ -1097,7 +1098,7 @@ void LogicEngine::pauseOrUnpause()
         pauseBackEntity = new SurfaceEntity(0.f, 0.f, SCREEN_WIDTH, SCREEN_HEIGHT);
         pauseBackEntity->setColor(0, 0, 0, 160);
 
-        pauseTextEntity = new TextEntity(&sf::Font::GetDefaultFont(), 52, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        pauseTextEntity = new TextEntity(&OstrichRiders::GetDefaultFont(), 52, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         pauseTextEntity->setText("PAUSE");
         pauseTextEntity->setAlignment(TextEntity::ALIGN_CENTER);
         pauseTextEntity->setColor(TextEntity::COLOR_WHITE);

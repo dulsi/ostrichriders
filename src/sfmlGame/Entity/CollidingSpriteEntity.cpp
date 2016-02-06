@@ -16,7 +16,7 @@
 
 #include "CollidingSpriteEntity.h"
 
-CollidingSpriteEntity::CollidingSpriteEntity(sf::Image* image, float x, float y, int width, int height)
+CollidingSpriteEntity::CollidingSpriteEntity(sf::Texture* image, float x, float y, int width, int height)
                                                     : SpriteEntity(image, x, y, width, height)
 {
     maxY = 1000.0f;
@@ -149,10 +149,10 @@ void CollidingSpriteEntity::animate(float delay)
 
 void CollidingSpriteEntity::calculateBB()
 {
-    boundingBox.Left = (int)x - width / 2;
-    boundingBox.Right = boundingBox.Left + width;
-    boundingBox.Top = (int)y - height / 2;
-    boundingBox.Bottom = boundingBox.Top + height;
+    boundingBox.left = (int)x - width / 2;
+    boundingBox.width = width;
+    boundingBox.top = (int)y - height / 2;
+    boundingBox.height = height;
 }
 
 void CollidingSpriteEntity::makeFall()
@@ -164,9 +164,9 @@ bool CollidingSpriteEntity::isOnGround()
 {
     calculateBB();
 
-    int xTile0 = (boundingBox.Left - offsetX) / tileWidth;
-    int xTilef = (boundingBox.Right - offsetX) / tileWidth;
-    int yTile = (boundingBox.Bottom + 1 - offsetY) / tileHeight;
+    int xTile0 = (boundingBox.left - offsetX) / tileWidth;
+    int xTilef = (boundingBox.left + boundingBox.width - offsetX) / tileWidth;
+    int yTile = (boundingBox.top + boundingBox.height + 1 - offsetY) / tileHeight;
 
     for (int xTile = xTile0; xTile <= xTilef; xTile++)
     {
@@ -196,12 +196,12 @@ bool CollidingSpriteEntity::collideWithMap(int direction)
 {
     calculateBB();
 
-    int xTile0 = (boundingBox.Left - offsetX) / tileWidth;
-    int xTilef = (boundingBox.Right - offsetX) / tileWidth;
-    int yTile0 = (boundingBox.Top - offsetY) / tileHeight;
-    int yTilef = (boundingBox.Bottom - offsetY) / tileHeight;
+    int xTile0 = (boundingBox.left - offsetX) / tileWidth;
+    int xTilef = (boundingBox.left + boundingBox.width - offsetX) / tileWidth;
+    int yTile0 = (boundingBox.top - offsetY) / tileHeight;
+    int yTilef = (boundingBox.top + boundingBox.height - offsetY) / tileHeight;
 
-    if (boundingBox.Top < 0) yTile0 = -1;
+    if (boundingBox.top < 0) yTile0 = -1;
 
     for (int xTile = xTile0; xTile <= xTilef; xTile++)
         for (int yTile = yTile0; yTile <= yTilef; yTile++)
@@ -234,10 +234,10 @@ bool CollidingSpriteEntity::collideWithEntity(CollidingSpriteEntity* entity)
     calculateBB();
     entity->calculateBB();
 
-    if (boundingBox.Left > entity->boundingBox.Right) return false;
-    if (boundingBox.Right < entity->boundingBox.Left) return false;
-    if (boundingBox.Top > entity->boundingBox.Bottom) return false;
-    if (boundingBox.Bottom < entity->boundingBox.Top) return false;
+    if (boundingBox.left > entity->boundingBox.left + entity->boundingBox.width) return false;
+    if (boundingBox.left + boundingBox.width < entity->boundingBox.left) return false;
+    if (boundingBox.top > entity->boundingBox.top + entity->boundingBox.height) return false;
+    if (boundingBox.top + boundingBox.height < entity->boundingBox.top) return false;
 
     return true;
 }

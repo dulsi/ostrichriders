@@ -17,7 +17,7 @@
 #include "BurningJousterEntity.h"
 #include "Constants.h"
 
-BurningJousterEntity::BurningJousterEntity(sf::Image* image, float x, float y)
+BurningJousterEntity::BurningJousterEntity(sf::Texture* image, float x, float y)
                         : SpriteEntity(image, x, y, JOUSTER_WIDTH, JOUSTER_HEIGHT)
 {
     lifetime = 3 * REBORN_DELAY / 4;
@@ -29,30 +29,35 @@ BurningJousterEntity::~BurningJousterEntity()
 
 void BurningJousterEntity::render(sf::RenderWindow* app)
 {
-    if ((int)velocity.x < 0) sprite.FlipX(true);
-    if ((int)velocity.x > 0) sprite.FlipX(false);
+    if ((int)velocity.x < 0)
+    {
+        sprite.setScale(-1, 1);
+    }
+    if ((int)velocity.x > 0)
+    {
+        sprite.setScale(1, 1);
+    }
 
     int y0 = (int)y - 2 +  (int)((float)height * (1.0f - getFade()));
     int yf = height - (int)((float)height * getFade());
 
-    sprite.SetSubRect(sf::IntRect(0, 0, width, height - yf));
-    sprite.SetX(x);
-    sprite.SetY((float)y0);
+    sprite.setTextureRect(sf::IntRect(0, 0, width, height - yf));
+    sprite.setPosition(x, (float)y0);
 
-    sprite.SetColor(sf::Color((sf::Uint8)(getFade() * 255),
+    sprite.setColor(sf::Color((sf::Uint8)(getFade() * 255),
                         (sf::Uint8)(getFade() * 64),
                         (sf::Uint8)(getFade() * 64),
                         255));
-    app->Draw(sprite);
+    app->draw(sprite);
 
-    sprite.SetSubRect(sf::IntRect(0, height, width, 2 * height - yf));
-    app->Draw(sprite);
+    sprite.setTextureRect(sf::IntRect(0, height, width, (2 * height - yf) - height));
+    app->draw(sprite);
 }
 
 void BurningJousterEntity::setMirror(bool mirror)
 {
     if (mirror)
     {
-        sprite.FlipX(true);
+        sprite.setScale(-1, 1);
     }
 }

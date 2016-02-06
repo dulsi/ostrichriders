@@ -22,7 +22,7 @@
 class SelectorEntity : public SpriteEntity
 {
 public:
-    SelectorEntity(sf::Image* image, float x, float y, int selected);
+    SelectorEntity(sf::Texture* image, float x, float y, int selected);
 
     int getSelected();
     void setSelected(int selected);

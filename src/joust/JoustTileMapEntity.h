@@ -23,7 +23,7 @@
 class JoustTileMapEntity : public TileMapEntity
 {
 public:
-    JoustTileMapEntity(sf::Image* image, GameMap* gameMap, int tileWidth, int tileHeight, int tilesProLine);
+    JoustTileMapEntity(sf::Texture* image, GameMap* gameMap, int tileWidth, int tileHeight, int tilesProLine);
     ~JoustTileMapEntity();
 
     virtual void render(sf::RenderWindow* app);

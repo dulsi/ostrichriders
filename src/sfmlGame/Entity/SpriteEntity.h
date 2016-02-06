@@ -24,7 +24,7 @@ class SpriteEntity : public GameEntity
 {
 public:
     // create a sprite with the entire image
-    SpriteEntity(sf::Image* image, float x = 0.0f, float y = 0.0f, int width = -1, int height = -1, int imagesProLine = 0);
+    SpriteEntity(sf::Texture* image, float x = 0.0f, float y = 0.0f, int width = -1, int height = -1, int imagesProLine = 0);
 
     void setFading(bool isFading);
     void setFrame(int frame);
@@ -34,7 +34,7 @@ public:
 
 protected:
     sf::Sprite sprite;
-    sf::Image* image;
+    sf::Texture* image;
     int width;
     int height;
     int frame;

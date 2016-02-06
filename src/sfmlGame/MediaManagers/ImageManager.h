@@ -25,13 +25,13 @@ public:
     static ImageManager* getImageManager();
     void addImage(char* fileName);
     bool reloadImage(int n, const char* fileName);
-    sf::Image* getImage(int n);
+    sf::Texture* getImage(int n);
 
 private:
     ImageManager();
     ~ImageManager();
 
-    std::vector<sf::Image*> imageArray;
+    std::vector<sf::Texture*> textureArray;
 };
 
 #endif // IMAGEMANAGER_H_INCLUDED

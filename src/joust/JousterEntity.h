@@ -24,7 +24,7 @@
 class JousterEntity : public CollidingSpriteEntity
 {
 public:
-    JousterEntity(sf::Image* image, int spriteType, float x /*= 0.0f*/, float y /*= 0.0f*/);
+    JousterEntity(sf::Texture* image, int spriteType, float x /*= 0.0f*/, float y /*= 0.0f*/);
     ~JousterEntity();
 
     int getSpeed();

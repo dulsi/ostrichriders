@@ -22,7 +22,7 @@
 class MountEntity : public JousterEntity
 {
 public:
-    MountEntity(sf::Image* image, int spriteType, float x, float y);
+    MountEntity(sf::Texture* image, int spriteType, float x, float y);
     ~MountEntity();
 
     void setLeftDirection(bool isLeftDirection);

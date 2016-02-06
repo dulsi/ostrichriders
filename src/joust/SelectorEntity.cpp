@@ -17,11 +17,11 @@
 #include "SelectorEntity.h"
 #include "Constants.h"
 
-SelectorEntity::SelectorEntity(sf::Image* image, float x, float y, int selected)
+SelectorEntity::SelectorEntity(sf::Texture* image, float x, float y, int selected)
                                     : SpriteEntity(image, x, y, JOUSTER_WIDTH, JOUSTER_HEIGHT)
 {
     this->selected = selected;
-    sprite.SetY(y - 100.0f);
+    sprite.setPosition(sprite.getPosition().x, y - 100.0f);
 }
 
 int SelectorEntity::getSelected() { return selected; }
@@ -29,16 +29,16 @@ void SelectorEntity::setSelected(int selected) { this->selected = selected; }
 
 void SelectorEntity::render(sf::RenderWindow* app)
 {
-    sprite.SetSubRect(sf::IntRect(400, 0, 600, 200));
-    if (selected == 0) sprite.SetX(x - 250.0f);
-    else sprite.SetX(x + 50.0f);
-    app->Draw(sprite);
+    sprite.setTextureRect(sf::IntRect(400, 0, 200, 200));
+    if (selected == 0) sprite.setPosition(x - 250.0f, sprite.getPosition().y);
+    else sprite.setPosition(x + 50.0f, sprite.getPosition().y);
+    app->draw(sprite);
 
-    sprite.SetSubRect(sf::IntRect(0, 0, 200, 200));
-    sprite.SetX(x - 250.0f);
-    app->Draw(sprite);
+    sprite.setTextureRect(sf::IntRect(0, 0, 200, 200));
+    sprite.setPosition(x - 250.0f, sprite.getPosition().y);
+    app->draw(sprite);
 
-    sprite.SetSubRect(sf::IntRect(200, 0, 400, 200));
-    sprite.SetX(x + 50.0f);
-    app->Draw(sprite);
+    sprite.setTextureRect(sf::IntRect(200, 0, 200, 200));
+    sprite.setPosition(x + 50.0f, sprite.getPosition().y);
+    app->draw(sprite);
 }

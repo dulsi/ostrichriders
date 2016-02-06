@@ -54,6 +54,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="src/defaultfont.cpp" />
+		<Unit filename="src/defaultfont.h" />
 		<Unit filename="src/joust/BotEntity.cpp" />
 		<Unit filename="src/joust/BotEntity.h" />
 		<Unit filename="src/joust/BurningJousterEntity.cpp" />

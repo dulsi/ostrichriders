@@ -36,6 +36,7 @@ public:
 protected:
     sf::Sprite sprite;
     sf::Image image;
+    sf::Texture imageTex;
     int width;
     int height;
     int fadeStyle;

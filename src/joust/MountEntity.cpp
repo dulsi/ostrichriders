@@ -17,7 +17,7 @@
 #include "MountEntity.h"
 #include "Constants.h"
 
-MountEntity::MountEntity(sf::Image* image, int spriteType, float x, float y)
+MountEntity::MountEntity(sf::Texture* image, int spriteType, float x, float y)
                         : JousterEntity(image, spriteType, x, y)
 {
     lifetime = REBORN_DELAY;
@@ -61,8 +61,14 @@ void MountEntity::animate(float delay)
 
 void MountEntity::render(sf::RenderWindow* app)
 {
-    if ((int)velocity.x < 0) sprite.FlipX(true);
-    if ((int)velocity.x > 0) sprite.FlipX(false);
+    if ((int)velocity.x < 0)
+    {
+        sprite.setScale(-1, 1);
+    }
+    if ((int)velocity.x > 0)
+    {
+        sprite.setScale(1, 1);
+    }
 
     findFrame();
 

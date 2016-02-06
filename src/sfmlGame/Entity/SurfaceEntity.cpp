@@ -20,8 +20,9 @@ SurfaceEntity::SurfaceEntity(float x, float y, int width, int height, int fadeSt
 {
     this->image = image;
     this->fadeStyle = fadeStyle;
-    image.Create(1, 1, sf::Color(255, 255, 255, 255));
-    sprite.SetImage(image);
+    image.create(1, 1, sf::Color(255, 255, 255, 255));
+    imageTex.loadFromImage(image);
+    sprite.setTexture(imageTex);
     setSize(width, height);
 }
 
@@ -29,25 +30,24 @@ void SurfaceEntity::setSize(int width, int height)
 {
     this->width  = width;
     this->height = height;
-    sprite.SetScale((float)width, (float)height);
+    sprite.setScale((float)width, (float)height);
 }
 
 void SurfaceEntity::render(sf::RenderWindow* app)
 {
-    sprite.SetX(x);
-    sprite.SetY(y);
+    sprite.setPosition(x, y);
 
     //if (isFading)
     {
         //sprite.SetColor(sf::Color(255, 255, 255, (sf::Uint8)(getFade() * 255)));
     }
 
-    app->Draw(sprite);
+    app->draw(sprite);
 }
 
 void SurfaceEntity::setColor(int r, int g, int b, int alpha)
 {
-    sprite.SetColor(sf::Color((sf::Uint8)r, (sf::Uint8)g, (sf::Uint8)b, (sf::Uint8)alpha));
+    sprite.setColor(sf::Color((sf::Uint8)r, (sf::Uint8)g, (sf::Uint8)b, (sf::Uint8)alpha));
 }
 
 void SurfaceEntity::animate(float delay)

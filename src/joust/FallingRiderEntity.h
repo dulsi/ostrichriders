@@ -22,7 +22,7 @@
 class FallingRiderEntity : public SpriteEntity
 {
 public:
-    FallingRiderEntity(sf::Image* image, float x, float y);
+    FallingRiderEntity(sf::Texture* image, float x, float y);
     ~FallingRiderEntity();
 
     void setMirror(bool mirror);

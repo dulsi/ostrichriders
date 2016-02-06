@@ -22,7 +22,7 @@
 class LifeEntity : public SpriteEntity
 {
 public:
-    LifeEntity(sf::Image* image, float x, float y, int lives);
+    LifeEntity(sf::Texture* image, float x, float y, int lives);
 
     void setLives(int lives);
 

@@ -19,7 +19,7 @@
 
 MenuEntity::MenuEntity(const sf::Font* font, int size, Menu* menu, float x, float y, float dy): GuiEntity(x, y)
 {
-    string = new sf::String(L"", *font, (float)size);
+    string = new sf::Text(L"", *font, (float)size);
     this->menu = menu;
     this->dy = dy;
     currentItem = 0;
@@ -65,22 +65,23 @@ void MenuEntity::render(sf::RenderWindow* app)
 
         if (menu->getSelectedEntry() == i)
         {
-            string->SetColor(sf::Color(255, 255, 255));
+            string->setColor(sf::Color(255, 255, 255));
             if (menu->getMenuEntry(i)->getType() == MenuEntry::typeChoice)
-                string->SetText(L"< " + menu->getFullEntry(i) + L" >");
+                string->setString(L"< " + menu->getFullEntry(i) + L" >");
             else
-                string->SetText(menu->getFullEntry(i));
+                string->setString(menu->getFullEntry(i));
         }
         else
         {
-            string->SetColor(sf::Color(128, 128, 128));
-            string->SetText(menu->getFullEntry(i));
+            string->setColor(sf::Color(128, 128, 128));
+            string->setString(menu->getFullEntry(i));
         }
 
 
         //string->SetSize(STRING_SIZE_MENU_ITEM);
-        string->SetPosition(x - string->GetRect().GetWidth() / 2.f, yEntry);
-        app->Draw(*string);
+
+        string->setPosition(x - string->getGlobalBounds().width / 2.f, yEntry);
+        app->draw(*string);
     }
 
     //app->Draw(*string);
@@ -97,14 +98,14 @@ void MenuEntity::onEvent(sf::Event event)
 
     if (menu->getMenuType() == Menu::MENU_TYPE_ENTER_KEY)
     {
-        if (event.Type == sf::Event::KeyPressed)
+        if (event.type == sf::Event::KeyPressed)
         {
-            menu->setKey(event.Key.Code);
+            menu->setKey(event.key.code);
         }
     }
     else
     {
-        if (event.Type == event.JoyButtonPressed)
+        if (event.type == sf::Event::JoystickButtonPressed)
         {
             if (menu->getSelectedMenuEntry()->getType() == MenuEntry::typeButton)
             {
@@ -112,18 +113,18 @@ void MenuEntity::onEvent(sf::Event event)
             }
         }
 
-        if (event.Type == sf::Event::JoyMoved)
+        if (event.type == sf::Event::JoystickMoved)
         {
-            if (event.JoyMove.Axis == sf::Joy::AxisX)
+            if (event.joystickMove.axis == sf::Joystick::X)
             {
                 // left
-                if (event.JoyMove.Position < -20.0f)
+                if (event.joystickMove.position < -20.0f)
                 {
                     navigateLeft();
                 }
 
                 // right
-                if (event.JoyMove.Position > 20.0f)
+                if (event.joystickMove.position > 20.0f)
                 {
                     navigateRight();
                 }
@@ -131,40 +132,40 @@ void MenuEntity::onEvent(sf::Event event)
             else
             {
                 // up
-                if (event.JoyMove.Position < -20.0f)
+                if (event.joystickMove.position < -20.0f)
                 {
                     navigateUp();
                 }
 
                 // down
-                if (event.JoyMove.Position > 20.0f)
+                if (event.joystickMove.position > 20.0f)
                 {
                     navigateDown();
                 }
             }
         }
 
-        if (event.Type == sf::Event::KeyPressed) {
-            if (event.Key.Code == sf::Key::Return || event.Key.Code == sf::Key::Space)
+        if (event.type == sf::Event::KeyPressed) {
+            if (event.key.code == sf::Keyboard::Return || event.key.code == sf::Keyboard::Space)
             {
                 if (menu->getSelectedMenuEntry()->getType() == MenuEntry::typeButton)
                 {
                     isButtonPressed = true;
                 }
             }
-            else if (event.Key.Code == sf::Key::Down)
+            else if (event.key.code == sf::Keyboard::Down)
             {
                 navigateDown();
             }
-            else if (event.Key.Code == sf::Key::Up)
+            else if (event.key.code == sf::Keyboard::Up)
             {
                 navigateUp();
             }
-            else if (event.Key.Code == sf::Key::Right)
+            else if (event.key.code == sf::Keyboard::Right)
             {
                 navigateRight();
             }
-            else if (event.Key.Code == sf::Key::Left)
+            else if (event.key.code == sf::Keyboard::Left)
             {
                 navigateLeft();
             }

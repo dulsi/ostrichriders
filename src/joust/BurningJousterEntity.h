@@ -22,7 +22,7 @@
 class BurningJousterEntity : public SpriteEntity
 {
 public:
-    BurningJousterEntity(sf::Image* image, float x, float y);
+    BurningJousterEntity(sf::Texture* image, float x, float y);
     ~BurningJousterEntity();
 
     void setMirror(bool mirror);

@@ -23,7 +23,7 @@ ScoresEntity::ScoresEntity(const sf::Font* font, int size, GameScores* gameScore
 {
     this->xf = xf;
     this->dy = dy;
-    string = new sf::String(L"", *font, (float)size);
+    string = new sf::Text(L"", *font, (float)size);
     this->gameScores = gameScores;
 
     rColor[0] = 255;
@@ -47,28 +47,27 @@ void ScoresEntity::render(sf::RenderWindow* app)
         // moving color for new scores
         if (gameScores->isNewScore(i))
         {
-            string->SetColor(sf::Color(sf::Uint8(100.f + sinf(age * 3.f) * 100.f),
+            string->setColor(sf::Color(sf::Uint8(100.f + sinf(age * 3.f) * 100.f),
                                        sf::Uint8(100.f + sinf(age * 4.f) * 100.f),
                                        sf::Uint8(100.f + cosf(age * 5.f) * 100.f)));
         }
         else
         {
             int c = i % 2;
-            string->SetColor(sf::Color(sf::Uint8(rColor[c]),
+            string->setColor(sf::Color(sf::Uint8(rColor[c]),
                                        sf::Uint8(gColor[c]),
                                        sf::Uint8(bColor[c])));
         }
 
-        string->SetX(x);
-        string->SetY(y + i * dy);
-        string->SetText(gameScores->getName(i));
-        app->Draw(*string);
+        string->setPosition(x, y + i * dy);
+        string->setString(gameScores->getName(i));
+        app->draw(*string);
 
         std::ostringstream intStream;
         intStream << gameScores->getScore(i);
-        string->SetText(intStream.str());
-        string->SetX(xf - string->GetRect().GetWidth());
-        app->Draw(*string);
+        string->setString(intStream.str());
+        string->setPosition(xf - string->getGlobalBounds().width, string->getPosition().y);
+        app->draw(*string);
     }
 }
 

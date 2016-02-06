@@ -30,7 +30,7 @@ JoustGame::JoustGame(): Game(SCREEN_WIDTH,
                              APP_NAME + " " + APP_VERSION,
                              GameConstants::getGameConstants()->FULLSCREEN)
 {
-    app->EnableKeyRepeat(false);
+    app->setKeyRepeatEnabled(false);
 }
 
 JoustGame::~JoustGame()
@@ -112,24 +112,25 @@ void JoustGame::startGame()
     // Start game loop
     printf("Starting %s %s\n", APP_NAME.c_str(), APP_VERSION.c_str());
 
-    while (app->IsOpened())
+    sf::Clock clock;
+    while (app->isOpen())
     {
         // Process events
         sf::Event event;
 
         lEngine->initPlayerInputs();
 
-        while (app->GetEvent(event))
+        while (app->pollEvent(event))
         {
             // Close window : exit
-            if (event.Type == sf::Event::Closed)
-                app->Close();
+            if (event.type == sf::Event::Closed)
+                app->close();
 
-            if (event.Type == sf::Event::KeyPressed) {
-                if (event.Key.Code == sf::Key::F10)
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::F10)
                 {
-                    sf::Image screen = app->Capture();
-                    screen.SaveToFile("screenshot.jpg");
+                    sf::Image screen = app->capture();
+                    screen.saveToFile("screenshot.jpg");
                 }
             }
 
@@ -137,10 +138,10 @@ void JoustGame::startGame()
 
             if (LogicEngine::getLogicEngine()->getGameState() == LogicEngine::GAME_INTRO)
             {
-                if (event.Type == sf::Event::KeyPressed) {
-                    if (event.Key.Code == sf::Key::Escape)
+                if (event.type == sf::Event::KeyPressed) {
+                    if (event.key.code == sf::Keyboard::Escape)
                     {
-                        app->Close();
+                        app->close();
                     }
                 }
             }
@@ -149,30 +150,31 @@ void JoustGame::startGame()
                     || LogicEngine::getLogicEngine()->getGameState() == LogicEngine::GAME_INTERLEVEL
                     || LogicEngine::getLogicEngine()->getGameState() == LogicEngine::GAME_CHOOSING)
             {
-                if (event.Type == event.JoyButtonPressed)
+                if (event.type == sf::Event::JoystickButtonPressed)
                 {
                     lEngine->getPlayerInput(0)->jump = true;
                 }
 
-                if (event.Type == sf::Event::KeyPressed) {
-                    if (event.Key.Code == sf::Key::Escape)
+                if (event.type == sf::Event::KeyPressed) {
+                    if (event.key.code == sf::Keyboard::Escape)
                     {
                         LogicEngine::getLogicEngine()->startIntro();
                     }
 
                     // jumping (player 2)
-                    else if (event.Key.Code == (sf::Key::Code)(lEngine->getKeys(1).jump))
+                    else if (event.key.code == (sf::Keyboard::Key)(lEngine->getKeys(1).jump))
                     {
                         lEngine->getPlayerInput(1)->jump = true;
                     }
 
-                    else if (event.Key.Code == (sf::Key::Code)(lEngine->getKeys(0).jump))
+//                    else if (event.key.code == sf::Keyboard::J)
+                    else if (event.key.code == (sf::Keyboard::Key)(lEngine->getKeys(0).jump))
                     {
                         lEngine->getPlayerInput(0)->jump = true;
                     }
 
                     // Pause
-                    else if (event.Key.Code == sf::Key::P)
+                    else if (event.key.code == sf::Keyboard::P)
                     {
                         lEngine->pauseOrUnpause();
                     }
@@ -181,7 +183,7 @@ void JoustGame::startGame()
 
             else if (LogicEngine::getLogicEngine()->getGameState() == LogicEngine::GAME_GAMEOVER)
             {
-                if (event.Type == sf::Event::KeyPressed || event.Type == event.JoyButtonPressed) {
+                if (event.type == sf::Event::KeyPressed || event.type == sf::Event::JoystickButtonPressed) {
                     //if (event.Key.Code == sf::Key::Escape)
                     {
                         if (lEngine->canEndGameOver()) lEngine->startIntro();
@@ -190,19 +192,20 @@ void JoustGame::startGame()
             }
         }
 
-        const sf::Input& input = app->GetInput();
-        float joyX = input.GetJoystickAxis(0, sf::Joy::AxisX);
+        float joyX = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
 
-        lEngine->getPlayerInput(0)->left = input.IsKeyDown((sf::Key::Code)(lEngine->getKeys(0).left)) || joyX < -20.0f;
-        lEngine->getPlayerInput(0)->right = input.IsKeyDown((sf::Key::Code)(lEngine->getKeys(0).right)) || joyX > 20.0f;
-        lEngine->getPlayerInput(1)->left = input.IsKeyDown((sf::Key::Code)(lEngine->getKeys(1).left)); //|| joyX < -20.0f;
-        lEngine->getPlayerInput(1)->right = input.IsKeyDown((sf::Key::Code)(lEngine->getKeys(1).right)); //|| joyX > 20.0f;
+//        lEngine->getPlayerInput(0)->left = sf::Keyboard::isKeyPressed(sf::Keyboard::S) || joyX < -20.0f;
+//        lEngine->getPlayerInput(0)->right = sf::Keyboard::isKeyPressed(sf::Keyboard::D) || joyX > 20.0f;
+        lEngine->getPlayerInput(0)->left = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(0).left)) || joyX < -20.0f;
+        lEngine->getPlayerInput(0)->right = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(0).right)) || joyX > 20.0f;
+        lEngine->getPlayerInput(1)->left = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(1).left)); //|| joyX < -20.0f;
+        lEngine->getPlayerInput(1)->right = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(1).right)); //|| joyX > 20.0f;
 
 
         if (!lEngine->isPausing())
         {
             onUpdate();
-            lEngine->update(app->GetFrameTime());
+            lEngine->update(clock.restart().asSeconds());
         }
 
         onRender();
