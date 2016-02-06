@@ -39,13 +39,9 @@ JoustGame::~JoustGame()
 
 void JoustGame::startGame()
 {
-#ifndef _68X68
 
     ImageManager::getImageManager()->addImage((char*)"data/media/hero0.png");
     ImageManager::getImageManager()->addImage((char*)"data/media/hero1.png");
-
-    //ImageManager::getImageManager()->addImage((char*)"data/media/piaf64.png");
-    //ImageManager::getImageManager()->addImage((char*)"data/media/piaf2_64.png");
 
     ImageManager::getImageManager()->addImage((char*)"data/mods/standard/media/tiles.png");
 
@@ -53,25 +49,6 @@ void JoustGame::startGame()
     ImageManager::getImageManager()->addImage((char*)"data/media/ennemy1.png");
     ImageManager::getImageManager()->addImage((char*)"data/media/ennemy2.png");
     ImageManager::getImageManager()->addImage((char*)"data/media/ennemy3.png");
-
-    //ImageManager::getImageManager()->addImage((char*)"data/media/bot64_0.png");
-    //ImageManager::getImageManager()->addImage((char*)"data/media/bot64_1.png");
-    //ImageManager::getImageManager()->addImage((char*)"data/media/bot64_2.png");
-    //ImageManager::getImageManager()->addImage((char*)"data/media/bot64_3.png");
-
-#else
-
-    ImageManager::getImageManager()->addImage((char*)"data/media/piaf68.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/piaf2_68.png");
-
-    ImageManager::getImageManager()->addImage((char*)"data/media/tiles.png");
-
-    ImageManager::getImageManager()->addImage((char*)"data/media/bot68_0.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/bot68_1.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/bot68_2.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/bot68_3.png");
-
-#endif
 
     ImageManager::getImageManager()->addImage((char*)"data/media/egg16.png");
 
@@ -106,7 +83,7 @@ void JoustGame::startGame()
     LogicEngine* lEngine = LogicEngine::getLogicEngine();
 
     LogicEngine::getLogicEngine()->setRenderWindow(app);
-    LogicEngine::getLogicEngine()->startIntro(); //startGame(2);
+    LogicEngine::getLogicEngine()->startIntro();
 
     // Start game loop
     printf("Starting %s %s\n", APP_NAME.c_str(), APP_VERSION.c_str());

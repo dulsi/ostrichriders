@@ -19,8 +19,6 @@
 
 #include <string>
 
-//#define _68X68
-
 const std::string APP_NAME =      "Ostrich Riders";
 const std::string APP_VERSION =   "0.6.1";
 
@@ -54,10 +52,6 @@ const float JUMP_DELAY = 0.25f;
 const float MULTIKILL_DELAY = 1.5f;
 const int KILL_COMBO_MAX = 4;
 
-#ifndef _68X68
-
-// 64x64
-
 const int JOUSTER_WIDTH  = 64;
 const int JOUSTER_HEIGHT = 64;
 
@@ -71,22 +65,6 @@ const int BB_LEFT    = 22;
 const int BB_RIGHT   = 22;
 const int BB_TOP     = 4;
 const int BB_BOTTOM  = 31;
-
-
-#else
-//68x68
-const int JOUSTER_WIDTH  = 68;
-const int JOUSTER_HEIGHT = 68;
-
-const int GATE_WIDTH  = 68;
-const int GATE_HEIGHT = 68;
-
-const int BB_LEFT    = 22;
-const int BB_RIGHT   = 22;
-const int BB_TOP     = 4;
-const int BB_BOTTOM  = 33;
-
-#endif
 
 const int JOUSTER_KILLING_DISTANCE = 8;
 
