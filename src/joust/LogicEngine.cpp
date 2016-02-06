@@ -31,27 +31,7 @@
 #include "../defaultfont.h"
 
 
-const char* getLevelString(int level)
-{
-    string s = "data/maps/standard/map";
-
-
-    if (level < 10)
-    {
-        s += '0';
-        s += (char)((int)'0' + level);
-    }
-    else
-    {
-        s += (char)((int)'0' + level / 10);
-        s += (char)((int)'0' + level % 10);
-    }
-    s += ".dat";
-    printf("Level %d: %s\n", level, s.c_str());
-    return s.c_str();
-}
-
-LogicEngine::LogicEngine()
+LogicEngine::LogicEngine() : map(NULL)
 {
     printf("LogicEngine Singleton created\n");
 
@@ -74,6 +54,8 @@ LogicEngine::LogicEngine()
 
 LogicEngine::~LogicEngine()
 {
+    if (map)
+        delete map;
 }
 
  LogicEngine* LogicEngine::getLogicEngine()
@@ -228,8 +210,9 @@ void LogicEngine::startGame(int nPlayers)
     level = 1;
     //level = 8;
     // create the map
+    if (map)
+        delete map;
     map = new JoustGameMap(MAP_WIDTH, MAP_HEIGHT);
-    //map->loadFromFile(getLevelString(level), true);
 
     // create player(s)
     for (int i = 0; i < nPlayers; i++)
