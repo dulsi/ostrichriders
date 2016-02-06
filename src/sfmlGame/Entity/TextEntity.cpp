@@ -26,6 +26,11 @@ TextEntity::TextEntity(const sf::Font* font, int size, float x, float y) : GameE
     colorType = COLOR_WHITE;
 }
 
+TextEntity::~TextEntity()
+{
+    delete string;
+}
+
 void TextEntity::render(sf::RenderWindow* app)
 {
     align();

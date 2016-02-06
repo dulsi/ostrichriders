@@ -25,6 +25,7 @@ class TextEntity : public GameEntity
 public:
     // create a sprite with the entire image
     TextEntity(const sf::Font* font, int size, float x = 0.0f, float y = 0.0f);
+    ~TextEntity();
 
     virtual void render(sf::RenderWindow* app);
 	virtual void animate(float delay);

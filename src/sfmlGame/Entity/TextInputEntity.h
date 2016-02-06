@@ -26,6 +26,7 @@ class TextInputEntity : public  GuiEntity
 public:
     // create a sprite with the entire image
     TextInputEntity(const sf::Font* font, int size, float x = 0.0f, float y = 0.0f);
+    ~TextInputEntity();
 
     std::string getInputText();
     bool getReturned();

@@ -27,6 +27,11 @@ TextInputEntity::TextInputEntity(const sf::Font* font, int size, float x, float 
     isReturned = false;
 }
 
+TextInputEntity::~TextInputEntity()
+{
+    delete string;
+}
+
 std::string TextInputEntity::getInputText() { return inputText; }
 bool TextInputEntity::getReturned() { return isReturned; }
 void TextInputEntity::setInputText(std::string inputText) { this->inputText = inputText; }
