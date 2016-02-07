@@ -425,7 +425,7 @@ void LogicEngine::startInterlevel()
             {
                 TextEntity* survText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
                 std::ostringstream intStream;
-                intStream << "Survival bonus (player " << i << ") :";
+                intStream << "Survival bonus (player " << (i + 1) << ") :";
                 survText->setText(intStream.str());
                 survText->setLifetime(INTERLEVEL_DELAY);
                 TextEntity* survScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
@@ -972,7 +972,7 @@ void LogicEngine::prepareEnterName(int player)
     //if (inputEntity != NULL) delete inputEntity;
     inputEntity = new TextInputEntity(&OstrichRiders::GetDefaultFont(), 20, 370.0f, 450.0f);
     std::ostringstream intStream;
-    intStream << "Player " << scoringPlayer << ", enter you name: ";
+    intStream << "Player " << (scoringPlayer + 1) << ", enter you name: ";
     inputEntity->setPreText(intStream.str());
     inputEntity->setInputText(enteredName[player]);
 }
