@@ -87,6 +87,7 @@ const float BOT_DELAY = 1.0f;
 
 const float REBORN_DELAY = 4.0f;
 
+const int ROTATING_DELAY = 10;
 
 // GAME
 const float GAME_OVER_DELAY = 2.0f;
@@ -129,6 +130,7 @@ const int IMAGE_HUD         = 13;
 const int IMAGE_SELECT      = 14;
 const int IMAGE_LIFE0       = 15;
 const int IMAGE_LIFE1       = 16;
+const int IMAGE_LIFE2       = 17;
 
 //SOUND
 const int SOUND_COLLISION_WITH_JOUSTER  = 0;

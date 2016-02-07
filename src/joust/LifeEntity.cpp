@@ -20,35 +20,53 @@
 #include "LifeEntity.h"
 #include "Constants.h"
 
-LifeEntity::LifeEntity(sf::Texture* image, float x, float y, int lives)
-                                    : SpriteEntity(image, x, y, LIFE_WIDTH, LIFE_HEIGHT)
+LifeEntity::LifeEntity(sf::Texture *image, float x, float y, int *lives)
+                                    : SpriteEntity(image, x, y, LIFE_WIDTH, LIFE_HEIGHT), current(0), currentTime(0.0)
 {
-    this->lives = lives;
-
-    //width = JOUSTER_WIDTH;
-    //height = JOUSTER_HEIGHT;
-
-    //sprite.SetSubRect(sf::IntRect(0, height, width, 2 * height));
-    //sprite.SetScale(0.5f, 0.5f);
+    this->lives.push_back(lives);
 }
 
+void LifeEntity::addLives(sf::Texture *image, int *lives)
+{
+    this->lives.push_back(lives);
+    sprites.push_back(sf::Sprite());
+    sprites.back().setTexture(*image);
+    sprites.back().setOrigin((float)(this->width / 2), (float)(this->height / 2));
+}
+
+void LifeEntity::animate(float delay)
+{
+    if (lives.size() > 1)
+    {
+        currentTime += delay;
+        if (currentTime >= ROTATING_DELAY)
+        {
+            current = ++current % lives.size();
+            currentTime = currentTime - (((int)currentTime / ROTATING_DELAY) * ROTATING_DELAY);
+        }
+    }
+    SpriteEntity::animate(delay);
+}
 
 void LifeEntity::render(sf::RenderWindow* app)
 {
-    if (lives < 1) return;
+    if (*(lives[current]) < 1) return;
+    sf::Sprite *currentSprite = &sprite;
+    if (current > 0)
+        currentSprite = &sprites[current - 1];
 
-    int lives_to_show = lives;
-    if (lives > 4) lives_to_show = 3;
+    int lives_to_show = *(lives[current]);
+    if (lives_to_show > 4) lives_to_show = 3;
 
     for (int i = 0; i < lives_to_show; i++)
     {
-        sprite.setPosition(x + (float)(i * 21), y);
-        app->draw(sprite);
+        currentSprite->setPosition(x + (float)(i * 21), y);
+        app->draw(*currentSprite);
     }
 
-    if (lives > 4)
+    if (*(lives[current]) > 4)
     {
-        int lives_to_write = lives - 3;
+        int lives_to_write = *(lives[current]) - 3;
 
         std::ostringstream intStream;
         intStream << "+" << lives_to_write;
@@ -64,5 +82,3 @@ void LifeEntity::render(sf::RenderWindow* app)
         app->draw(string);
     }
 }
-
-void LifeEntity::setLives(int lives) { this->lives = lives; }

@@ -63,6 +63,7 @@ void JoustGame::startGame()
 
     ImageManager::getImageManager()->addImage((char*)"data/media/life0.png");
     ImageManager::getImageManager()->addImage((char*)"data/media/life1.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/life2.png");
 
 
     SoundManager::getSoundManager()->addSound((char*)"data/media/sound/collisionJouster.wav");

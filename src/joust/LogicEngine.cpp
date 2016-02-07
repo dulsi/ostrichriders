@@ -243,7 +243,7 @@ void LogicEngine::startGame(int nPlayers)
     scoreEntity[0]->setText(0);
     scoreEntity[0]->setAlignment(TextEntity::ALIGN_RIGHT);
 
-    lifeEntity[0] = new LifeEntity(ImageManager::getImageManager()->getImage(invertedPlayers ? IMAGE_LIFE1 : IMAGE_LIFE0), 273.0f, yText + 3, lives[0]);
+    lifeEntity[0] = new LifeEntity(ImageManager::getImageManager()->getImage(invertedPlayers ? IMAGE_LIFE1 : IMAGE_LIFE0), 273.0f, yText + 3, &lives[0]);
 
     if (nPlayers > 1)
     {
@@ -253,7 +253,11 @@ void LogicEngine::startGame(int nPlayers)
         scoreEntity[1]->setText(0);
         scoreEntity[1]->setAlignment(TextEntity::ALIGN_RIGHT);
 
-        lifeEntity[1] = new LifeEntity(ImageManager::getImageManager()->getImage(IMAGE_LIFE1), 690.0f, yText + 3, lives[1]);
+        lifeEntity[1] = new LifeEntity(ImageManager::getImageManager()->getImage(IMAGE_LIFE1), 690.0f, yText + 3, &lives[1]);
+        for (int i = 2; i < nPlayers; ++i)
+        {
+            lifeEntity[i % 2]->addLives(ImageManager::getImageManager()->getImage(IMAGE_LIFE0 + i), &lives[i]);
+        }
     }
 
     TextEntity* text3 = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 385.0f, yText);
@@ -410,27 +414,21 @@ void LogicEngine::startInterlevel()
 
     if (isMultiplayer())
     {
-        if (isSurvivor[0])
+        for (int i = 0; i < nPlayers; i++)
         {
-            TextEntity* survText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
-            survText->setText(L"Survival bonus (player 1) :");
-            survText->setLifetime(INTERLEVEL_DELAY);
-            TextEntity* survScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
-            survScoreText->setText(SURVIVOR_SCORE);
-            survScoreText->setLifetime(INTERLEVEL_DELAY);
-            addScore(0, SURVIVOR_SCORE);
-            yNext += dy;
-        }
-        if (isSurvivor[1])
-        {
-            TextEntity* survText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
-            survText->setText(L"Survival bonus (player 2) :");
-            survText->setLifetime(INTERLEVEL_DELAY);
-            TextEntity* survScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
-            survScoreText->setText(SURVIVOR_SCORE);
-            survScoreText->setLifetime(INTERLEVEL_DELAY);
-            addScore(1, SURVIVOR_SCORE);
-            yNext += dy;
+            if (isSurvivor[i])
+            {
+                TextEntity* survText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
+                std::ostringstream intStream;
+                intStream << "Survival bonus (player " << i << ") :";
+                survText->setText(intStream.str());
+                survText->setLifetime(INTERLEVEL_DELAY);
+                TextEntity* survScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
+                survScoreText->setText(SURVIVOR_SCORE);
+                survScoreText->setLifetime(INTERLEVEL_DELAY);
+                addScore(i, SURVIVOR_SCORE);
+                yNext += dy;
+            }
         }
         if (isCooperative)
         {
@@ -440,8 +438,10 @@ void LogicEngine::startInterlevel()
             TextEntity* coopScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
             coopScoreText->setText(COOPERATIVE_SCORE);
             coopScoreText->setLifetime(INTERLEVEL_DELAY);
-            addScore(0, COOPERATIVE_SCORE);
-            addScore(1, COOPERATIVE_SCORE);
+            for (int i = 0; i < nPlayers; i++)
+            {
+                addScore(i, COOPERATIVE_SCORE);
+            }
             yNext += dy;
         }
     }
@@ -473,8 +473,6 @@ void LogicEngine::addScore(int player, int score)
     {
         lives[player]++;
         playSound(SOUND_LIFE_UP);
-        if (player < 2)
-        lifeEntity[player]->setLives(lives[player]);
         new FlyingScoreEntity(playerEntity[player]->getX(), playerEntity[player]->getY(), "LIFE UP");
     }
 }
@@ -573,8 +571,6 @@ void LogicEngine::initPlayerInputs()
 void LogicEngine::onPlayerDying(int player, int killer)
 {
     lives[player]--;
-    if (player < 2)
-    lifeEntity[player]->setLives(lives[player]);
     isSurvivor[player] = false;
 
     if (killer >= 0)
@@ -971,11 +967,9 @@ void LogicEngine::prepareEnterName(int player)
 
     //if (inputEntity != NULL) delete inputEntity;
     inputEntity = new TextInputEntity(&OstrichRiders::GetDefaultFont(), 20, 370.0f, 450.0f);
-    switch (scoringPlayer)
-    {
-        case 0: inputEntity->setPreText("Player 1, enter your name: "); break;
-        case 1: inputEntity->setPreText("Player 2, enter your name: "); break;
-    }
+    std::ostringstream intStream;
+    intStream << "Player " << scoringPlayer << ", enter you name: ";
+    inputEntity->setPreText(intStream.str());
     inputEntity->setInputText(enteredName[player]);
 }
 

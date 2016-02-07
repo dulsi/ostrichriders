@@ -22,15 +22,19 @@
 class LifeEntity : public SpriteEntity
 {
 public:
-    LifeEntity(sf::Texture* image, float x, float y, int lives);
+    LifeEntity(sf::Texture *image, float x, float y, int *lives);
 
-    void setLives(int lives);
+    void addLives(sf::Texture *image, int *lives);
 
+	virtual void animate(float delay);
     virtual void render(sf::RenderWindow* app);
 	//virtual void animate(float delay);
 
 private:
-    int lives;
+    std::vector<int*> lives;
+    std::vector<sf::Sprite> sprites;
+    int current;
+    float currentTime;
 };
 
 #endif // LIFEENTITY_H_INCLUDED
