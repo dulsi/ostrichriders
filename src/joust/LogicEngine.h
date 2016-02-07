@@ -27,6 +27,7 @@
 #include "EggEntity.h"
 #include "JoustTileMapEntity.h"
 #include "LifeEntity.h"
+#include "RotatingTextEntity.h"
 #include "SelectorEntity.h"
 //#include "../sfmlGame/Model/GameMap.h"
 #include "JoustGameMap.h"
@@ -48,13 +49,8 @@ const int MENU_MAIN_EXIT     = 4;
 const int MENU_OPTION_FULLSCREEN    = 0;
 const int MENU_OPTION_CONTROLS1     = 1;
 const int MENU_OPTION_CONTROLS2     = 2;
-#ifdef LIMIT_PLAYERS_2
-const int MENU_OPTION_CONTROLS3     = 4;
-const int MENU_OPTION_BACK          = 3;
-#else
 const int MENU_OPTION_CONTROLS3     = 3;
 const int MENU_OPTION_BACK          = 4;
-#endif
 
 const int MENU_CONTROL_LEFT     = 0;
 const int MENU_CONTROL_RIGHT    = 1;
@@ -150,7 +146,7 @@ private:
     int playerStatus[NPLAYERS_MAX];             // player's status
     PlayerInput* playerInput[NPLAYERS_MAX];     // input set of the player
     float playerDelay[NPLAYERS_MAX];            // delay for the player
-    TextEntity* scoreEntity[NPLAYERS_MAX];
+    RotatingTextEntity* scoreEntity[NPLAYERS_MAX];
     LifeEntity* lifeEntity[NPLAYERS_MAX];
     bool isSurvivor[NPLAYERS_MAX];
     float killDelay[NPLAYERS_MAX];

@@ -17,8 +17,6 @@
 #ifndef CONSTANTS_H_INCLUDED
 #define CONSTANTS_H_INCLUDED
 
-#define LIMIT_PLAYERS_2
-
 #include <string>
 
 const std::string APP_NAME =      "Ostrich Riders";

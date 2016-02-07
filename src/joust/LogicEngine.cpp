@@ -237,26 +237,31 @@ void LogicEngine::startGame(int nPlayers)
 
     // hud texts
     float yText = 730.0f;
-    TextEntity* text1 = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 15.0f, yText);
-    text1->setText(L"Player 1");
-    scoreEntity[0] = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 245.0f, yText);
-    scoreEntity[0]->setText(0);
+    RotatingTextEntity *texts[2];
+    texts[0] = new RotatingTextEntity(&OstrichRiders::GetDefaultFont(), 24, 15.0f, yText);
+    texts[0]->setText(0, "Player 1");
+    scoreEntity[0] = new RotatingTextEntity(&OstrichRiders::GetDefaultFont(), 24, 245.0f, yText);
+    scoreEntity[0]->setText(0, 0);
     scoreEntity[0]->setAlignment(TextEntity::ALIGN_RIGHT);
 
     lifeEntity[0] = new LifeEntity(ImageManager::getImageManager()->getImage(invertedPlayers ? IMAGE_LIFE1 : IMAGE_LIFE0), 273.0f, yText + 3, &lives[0]);
 
     if (nPlayers > 1)
     {
-        TextEntity* text2 = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 925.0f, yText);
-        text2->setText(L"Player 2");
-        scoreEntity[1] = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, 902.0f, yText);
-        scoreEntity[1]->setText(0);
+        texts[1] = new RotatingTextEntity(&OstrichRiders::GetDefaultFont(), 24, 925.0f, yText);
+        texts[1]->setText(0, "Player 2");
+        scoreEntity[1] = new RotatingTextEntity(&OstrichRiders::GetDefaultFont(), 24, 902.0f, yText);
+        scoreEntity[1]->setText(0, 0);
         scoreEntity[1]->setAlignment(TextEntity::ALIGN_RIGHT);
 
         lifeEntity[1] = new LifeEntity(ImageManager::getImageManager()->getImage(IMAGE_LIFE1), 690.0f, yText + 3, &lives[1]);
         for (int i = 2; i < nPlayers; ++i)
         {
             lifeEntity[i % 2]->addLives(ImageManager::getImageManager()->getImage(IMAGE_LIFE0 + i), &lives[i]);
+            std::ostringstream intStream;
+            intStream << "Player " << (i + 1);
+            texts[i % 2]->setText(i / 2, intStream.str());
+            scoreEntity[i % 2]->setText(i / 2, 0);
         }
     }
 
@@ -843,8 +848,7 @@ void LogicEngine::update(float dt)
                         playerStatus[i] = PLAYER_STATUS_PLAYING;
                     }
                 }
-                if (i < 2)
-                scoreEntity[i]->setText(score[i]);
+                scoreEntity[i % 2]->setText(i / 2, score[i]);
             }
 
             if (arePlayersDead())
@@ -1031,9 +1035,7 @@ void LogicEngine::buildMenu()
     MenuEntry* entryPlayers = new MenuEntry(L"Number of players", MenuEntry::typeChoice);
     entryPlayers->addChoice(L"1");
     entryPlayers->addChoice(L"2");
-#ifndef LIMIT_PLAYERS_2
     entryPlayers->addChoice(L"3");
-#endif
     mainMenu->addEntry(entryPlayers);
 
     MenuEntry* entryMod = new MenuEntry(L"Mod", MenuEntry::typeChoice);
@@ -1059,10 +1061,8 @@ void LogicEngine::buildMenu()
     optionMenu->addEntry(entryControls1);
     MenuEntry* entryControls2 = new MenuEntry(L"Configure controls (P2)", MenuEntry::typeButton);
     optionMenu->addEntry(entryControls2);
-#ifndef LIMIT_PLAYERS_2
     MenuEntry* entryControls3 = new MenuEntry(L"Configure controls (P3)", MenuEntry::typeButton);
     optionMenu->addEntry(entryControls3);
-#endif
     MenuEntry* entryBack = new MenuEntry(L"Back", MenuEntry::typeButton);
     optionMenu->addEntry(entryBack);
 
