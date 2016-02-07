@@ -36,6 +36,9 @@ public:
     int CONTROL2_LEFT;
     int CONTROL2_RIGHT;
     int CONTROL2_JUMP;
+    int CONTROL3_LEFT;
+    int CONTROL3_RIGHT;
+    int CONTROL3_JUMP;
 
     // physics
     float JOUSTER_WEIGHT;

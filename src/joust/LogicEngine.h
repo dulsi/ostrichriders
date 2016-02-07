@@ -48,7 +48,13 @@ const int MENU_MAIN_EXIT     = 4;
 const int MENU_OPTION_FULLSCREEN    = 0;
 const int MENU_OPTION_CONTROLS1     = 1;
 const int MENU_OPTION_CONTROLS2     = 2;
+#ifdef LIMIT_PLAYERS_2
+const int MENU_OPTION_CONTROLS3     = 4;
 const int MENU_OPTION_BACK          = 3;
+#else
+const int MENU_OPTION_CONTROLS3     = 3;
+const int MENU_OPTION_BACK          = 4;
+#endif
 
 const int MENU_CONTROL_LEFT     = 0;
 const int MENU_CONTROL_RIGHT    = 1;
@@ -216,7 +222,7 @@ private:
     bool invertedPlayers;
     int oldModChoice;
 
-    keysStruct keys[2];
+    keysStruct keys[3];
 
     void loadConfig();
     void saveConfig();

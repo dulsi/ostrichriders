@@ -131,8 +131,8 @@ void LogicEngine::startIntro()
 void LogicEngine::startChoosing()
 {
     gameState = GAME_CHOOSING;
-    playerInput[0]->init();
-    playerInput[1]->init();
+    for (int i = 0; i < NPLAYERS_MAX; i++)
+        playerInput[i]->init();
 
     // black transparent screen
     SurfaceEntity* blackScreen = new SurfaceEntity(0.f, 0.f, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -473,6 +473,7 @@ void LogicEngine::addScore(int player, int score)
     {
         lives[player]++;
         playSound(SOUND_LIFE_UP);
+        if (player < 2)
         lifeEntity[player]->setLives(lives[player]);
         new FlyingScoreEntity(playerEntity[player]->getX(), playerEntity[player]->getY(), "LIFE UP");
     }
@@ -493,6 +494,7 @@ void LogicEngine::createPlayer(int n)
     switch (n)
     {
         case 1: imageNumber = invertedPlayers ? IMAGE_PLAYER1 : IMAGE_PLAYER2; break;
+        case 2: imageNumber = IMAGE_PLAYER3; break;
     }
 
     playerEntity[n] = new PlayerEntity(ImageManager::getImageManager()->getImage(imageNumber),
@@ -571,6 +573,7 @@ void LogicEngine::initPlayerInputs()
 void LogicEngine::onPlayerDying(int player, int killer)
 {
     lives[player]--;
+    if (player < 2)
     lifeEntity[player]->setLives(lives[player]);
     isSurvivor[player] = false;
 
@@ -697,7 +700,8 @@ void LogicEngine::update(float dt)
                     case MENU_STATE_OPTIONS:
                     {
                         if (optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS1
-                         || optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS2)
+                         || optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS2
+                         || optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS3)
                         {
                             menuEntity->setMenu(controlMenu);
                             controlMenu->init();
@@ -753,6 +757,8 @@ void LogicEngine::update(float dt)
                     int p = 0;
                     if (optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS2)
                         p = 1;
+                    if (optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS3)
+                        p = 2;
                     keys[p].left   = controlMenu->getKey(MENU_CONTROL_LEFT);
                     keys[p].right  = controlMenu->getKey(MENU_CONTROL_RIGHT);
                     keys[p].jump   = controlMenu->getKey(MENU_CONTROL_JUMP);
@@ -841,6 +847,7 @@ void LogicEngine::update(float dt)
                         playerStatus[i] = PLAYER_STATUS_PLAYING;
                     }
                 }
+                if (i < 2)
                 scoreEntity[i]->setText(score[i]);
             }
 
@@ -1030,6 +1037,9 @@ void LogicEngine::buildMenu()
     MenuEntry* entryPlayers = new MenuEntry(L"Number of players", MenuEntry::typeChoice);
     entryPlayers->addChoice(L"1");
     entryPlayers->addChoice(L"2");
+#ifndef LIMIT_PLAYERS_2
+    entryPlayers->addChoice(L"3");
+#endif
     mainMenu->addEntry(entryPlayers);
 
     MenuEntry* entryMod = new MenuEntry(L"Mod", MenuEntry::typeChoice);
@@ -1055,6 +1065,10 @@ void LogicEngine::buildMenu()
     optionMenu->addEntry(entryControls1);
     MenuEntry* entryControls2 = new MenuEntry(L"Configure controls (P2)", MenuEntry::typeButton);
     optionMenu->addEntry(entryControls2);
+#ifndef LIMIT_PLAYERS_2
+    MenuEntry* entryControls3 = new MenuEntry(L"Configure controls (P3)", MenuEntry::typeButton);
+    optionMenu->addEntry(entryControls3);
+#endif
     MenuEntry* entryBack = new MenuEntry(L"Back", MenuEntry::typeButton);
     optionMenu->addEntry(entryBack);
 
@@ -1102,6 +1116,9 @@ void LogicEngine::loadConfig()
     keys[1].left   = GameConstants::getGameConstants()->CONTROL2_LEFT;
     keys[1].right  = GameConstants::getGameConstants()->CONTROL2_RIGHT;
     keys[1].jump   = GameConstants::getGameConstants()->CONTROL2_JUMP;
+    keys[2].left   = GameConstants::getGameConstants()->CONTROL3_LEFT;
+    keys[2].right  = GameConstants::getGameConstants()->CONTROL3_RIGHT;
+    keys[2].jump   = GameConstants::getGameConstants()->CONTROL3_JUMP;
 }
 
 void LogicEngine::saveConfig()
@@ -1118,6 +1135,10 @@ void LogicEngine::saveConfig()
     f << "CONTROL2_LEFT "  << keys[1].left  << endl;
     f << "CONTROL2_RIGHT " << keys[1].right << endl;
     f << "CONTROL2_JUMP "  << keys[1].jump  << endl;
+
+    f << "CONTROL3_LEFT "  << keys[2].left  << endl;
+    f << "CONTROL3_RIGHT " << keys[2].right << endl;
+    f << "CONTROL3_JUMP "  << keys[2].jump  << endl;
 
     f.close();
 }

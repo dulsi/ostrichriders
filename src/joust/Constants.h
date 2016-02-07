@@ -17,6 +17,8 @@
 #ifndef CONSTANTS_H_INCLUDED
 #define CONSTANTS_H_INCLUDED
 
+#define LIMIT_PLAYERS_2
+
 #include <string>
 
 const std::string APP_NAME =      "Ostrich Riders";
@@ -77,7 +79,7 @@ const float EGG_INCUBATION_DELAY_MIN = 8.0f;
 const float EGG_INCUBATION_DELAY_MAX = 16.0f;
 
 // LOGIC
-const int NPLAYERS_MAX = 2;
+const int NPLAYERS_MAX = 3;
 const int INITIAL_LIVES = 4;
 
 const int N_BOTS = 4;
@@ -112,20 +114,21 @@ const int TILE_PORTAL_OUT = 29;
 //IMAGES
 const int IMAGE_PLAYER1     = 0;
 const int IMAGE_PLAYER2     = 1;
-const int IMAGE_TILES       = 2;
-const int IMAGE_BOT_0       = 3;
-const int IMAGE_BOT_1       = 4;
-const int IMAGE_BOT_2       = 5;
-const int IMAGE_BOT_3       = 6;
-const int IMAGE_EGG         = 7;
-const int IMAGE_GATE        = 8;
-const int IMAGE_BACKGROUND  = 9;
-const int IMAGE_INTRO       = 10;
-const int IMAGE_BLACK_PART  = 11;
-const int IMAGE_HUD         = 12;
-const int IMAGE_SELECT      = 13;
-const int IMAGE_LIFE0       = 14;
-const int IMAGE_LIFE1       = 15;
+const int IMAGE_PLAYER3     = 2;
+const int IMAGE_TILES       = 3;
+const int IMAGE_BOT_0       = 4;
+const int IMAGE_BOT_1       = 5;
+const int IMAGE_BOT_2       = 6;
+const int IMAGE_BOT_3       = 7;
+const int IMAGE_EGG         = 8;
+const int IMAGE_GATE        = 9;
+const int IMAGE_BACKGROUND  = 10;
+const int IMAGE_INTRO       = 11;
+const int IMAGE_BLACK_PART  = 12;
+const int IMAGE_HUD         = 13;
+const int IMAGE_SELECT      = 14;
+const int IMAGE_LIFE0       = 15;
+const int IMAGE_LIFE1       = 16;
 
 //SOUND
 const int SOUND_COLLISION_WITH_JOUSTER  = 0;

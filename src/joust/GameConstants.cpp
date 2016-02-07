@@ -54,6 +54,9 @@ GameConstants::GameConstants()
 	    if (c.compare("CONTROL2_LEFT")  == 0) { f >> integer; CONTROL2_LEFT = integer; }
 	    if (c.compare("CONTROL2_RIGHT") == 0) { f >> integer; CONTROL2_RIGHT = integer; }
 	    if (c.compare("CONTROL2_JUMP")  == 0) { f >> integer; CONTROL2_JUMP = integer; }
+	    if (c.compare("CONTROL3_LEFT")  == 0) { f >> integer; CONTROL3_LEFT = integer; }
+	    if (c.compare("CONTROL3_RIGHT") == 0) { f >> integer; CONTROL3_RIGHT = integer; }
+	    if (c.compare("CONTROL3_JUMP")  == 0) { f >> integer; CONTROL3_JUMP = integer; }
 
         // physics
         if (c.compare("JOUSTER_WEIGHT") == 0) { f >> JOUSTER_WEIGHT; }

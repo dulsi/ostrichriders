@@ -42,6 +42,7 @@ void JoustGame::startGame()
 
     ImageManager::getImageManager()->addImage((char*)"data/media/hero0.png");
     ImageManager::getImageManager()->addImage((char*)"data/media/hero1.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/hero2.png");
 
     ImageManager::getImageManager()->addImage((char*)"data/mods/standard/media/tiles.png");
 
@@ -137,12 +138,16 @@ void JoustGame::startGame()
                     }
 
                     // jumping (player 2)
+                    else if (event.key.code == (sf::Keyboard::Key)(lEngine->getKeys(2).jump))
+                    {
+                        lEngine->getPlayerInput(2)->jump = true;
+                    }
+
                     else if (event.key.code == (sf::Keyboard::Key)(lEngine->getKeys(1).jump))
                     {
                         lEngine->getPlayerInput(1)->jump = true;
                     }
 
-//                    else if (event.key.code == sf::Keyboard::J)
                     else if (event.key.code == (sf::Keyboard::Key)(lEngine->getKeys(0).jump))
                     {
                         lEngine->getPlayerInput(0)->jump = true;
@@ -175,6 +180,8 @@ void JoustGame::startGame()
         lEngine->getPlayerInput(0)->right = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(0).right)) || joyX > 20.0f;
         lEngine->getPlayerInput(1)->left = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(1).left)); //|| joyX < -20.0f;
         lEngine->getPlayerInput(1)->right = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(1).right)); //|| joyX > 20.0f;
+        lEngine->getPlayerInput(2)->left = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(2).left)); //|| joyX < -20.0f;
+        lEngine->getPlayerInput(2)->right = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(2).right)); //|| joyX > 20.0f;
 
 
         if (!lEngine->isPausing())
