@@ -146,8 +146,8 @@ private:
     int playerStatus[NPLAYERS_MAX];             // player's status
     PlayerInput* playerInput[NPLAYERS_MAX];     // input set of the player
     float playerDelay[NPLAYERS_MAX];            // delay for the player
-    RotatingTextEntity* scoreEntity[NPLAYERS_MAX];
-    LifeEntity* lifeEntity[NPLAYERS_MAX];
+    RotatingTextEntity* scoreEntity[2];
+    LifeEntity* lifeEntity[2];
     bool isSurvivor[NPLAYERS_MAX];
     float killDelay[NPLAYERS_MAX];
     int killCombo[NPLAYERS_MAX];
