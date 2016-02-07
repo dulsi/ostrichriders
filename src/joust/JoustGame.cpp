@@ -175,14 +175,13 @@ void JoustGame::startGame()
             }
         }
 
-        float joyX = sf::Joystick::getAxisPosition(0, sf::Joystick::X);
+        for (int i = 0; i < NPLAYERS_MAX; ++i)
+        {
+            float joyX = sf::Joystick::getAxisPosition(i, sf::Joystick::X);
 
-        lEngine->getPlayerInput(0)->left = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(0).left)) || joyX < -20.0f;
-        lEngine->getPlayerInput(0)->right = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(0).right)) || joyX > 20.0f;
-        lEngine->getPlayerInput(1)->left = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(1).left)); //|| joyX < -20.0f;
-        lEngine->getPlayerInput(1)->right = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(1).right)); //|| joyX > 20.0f;
-        lEngine->getPlayerInput(2)->left = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(2).left)); //|| joyX < -20.0f;
-        lEngine->getPlayerInput(2)->right = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(2).right)); //|| joyX > 20.0f;
+            lEngine->getPlayerInput(i)->left = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(i).left)) || joyX < -20.0f;
+            lEngine->getPlayerInput(i)->right = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(i).right)) || joyX > 20.0f;
+        }
 
 
         if (!lEngine->isPausing())

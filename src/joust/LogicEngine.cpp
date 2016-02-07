@@ -80,8 +80,11 @@ void LogicEngine::setBraking(bool braking) { isBraking = braking; }
 bool LogicEngine::isMultiplayer()
 {
     if (nPlayers <= 1) return false;
-    if (playerStatus[0] == PLAYER_STATUS_DEATH || playerStatus[1] == PLAYER_STATUS_DEATH)
-        return false;
+    for (int i = 0; i < nPlayers; ++i)
+    {
+        if (playerStatus[i] == PLAYER_STATUS_DEATH)
+            return false;
+    }
     return true;
 }
 
@@ -417,24 +420,32 @@ void LogicEngine::startInterlevel()
 
     yNext += dy;
 
-    if (isMultiplayer())
+    bool multi = isMultiplayer();
+    for (int i = 0; i < nPlayers; i++)
     {
-        for (int i = 0; i < nPlayers; i++)
+        if ((playerStatus[i] != PLAYER_STATUS_DEATH) && (isSurvivor[i]))
         {
-            if (isSurvivor[i])
+            TextEntity* survText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
+            if (multi)
             {
-                TextEntity* survText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
                 std::ostringstream intStream;
                 intStream << "Survival bonus (player " << (i + 1) << ") :";
                 survText->setText(intStream.str());
-                survText->setLifetime(INTERLEVEL_DELAY);
-                TextEntity* survScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
-                survScoreText->setText(SURVIVOR_SCORE);
-                survScoreText->setLifetime(INTERLEVEL_DELAY);
-                addScore(i, SURVIVOR_SCORE);
-                yNext += dy;
             }
+            else
+            {
+                survText->setText(L"Survival bonus :");
+            }
+            survText->setLifetime(INTERLEVEL_DELAY);
+            TextEntity* survScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
+            survScoreText->setText(SURVIVOR_SCORE);
+            survScoreText->setLifetime(INTERLEVEL_DELAY);
+            addScore(i, SURVIVOR_SCORE);
+            yNext += dy;
         }
+    }
+    if (multi)
+    {
         if (isCooperative)
         {
             TextEntity* coopText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
@@ -447,20 +458,6 @@ void LogicEngine::startInterlevel()
             {
                 addScore(i, COOPERATIVE_SCORE);
             }
-            yNext += dy;
-        }
-    }
-    else
-    {
-        if (isSurvivor[0])
-        {
-            TextEntity* survText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x1, yNext);
-            survText->setText(L"Survival bonus :");
-            survText->setLifetime(INTERLEVEL_DELAY);
-            TextEntity* survScoreText = new TextEntity(&OstrichRiders::GetDefaultFont(), 24, x2, yNext);
-            survScoreText->setText(SURVIVOR_SCORE);
-            survScoreText->setLifetime(INTERLEVEL_DELAY);
-            addScore(0, SURVIVOR_SCORE);
             yNext += dy;
         }
     }
