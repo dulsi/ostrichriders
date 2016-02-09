@@ -8,6 +8,8 @@ using namespace std;
 
 int main()
 {
+    JoustGame::initResources();
+
     JoustGame game;
     game.startGame();
 

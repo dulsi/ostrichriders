@@ -39,47 +39,6 @@ JoustGame::~JoustGame()
 
 void JoustGame::startGame()
 {
-
-    ImageManager::getImageManager()->addImage((char*)"data/media/hero0.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/hero1.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/hero2.png");
-
-    ImageManager::getImageManager()->addImage((char*)"data/mods/standard/media/tiles.png");
-
-    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy0.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy1.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy2.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy3.png");
-
-    ImageManager::getImageManager()->addImage((char*)"data/media/egg16.png");
-
-    ImageManager::getImageManager()->addImage((char*)"data/media/gate64.png");
-
-    ImageManager::getImageManager()->addImage((char*)"data/mods/standard/media/bg.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/intro.jpg");
-    ImageManager::getImageManager()->addImage((char*)"data/media/blackPart.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/hud.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/select.png");
-
-    ImageManager::getImageManager()->addImage((char*)"data/media/life0.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/life1.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/life2.png");
-
-
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/collisionJouster.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/jousterFall.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/collisionWall.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/gate.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/levelBegin.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/levelEnd.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/eggCrash.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/wingsFlap.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/step.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/burn.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/braking.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/lifeUp.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/menuMove.wav");
-
     GameConstants::getGameConstants();
 
     LogicEngine* lEngine = LogicEngine::getLogicEngine();
@@ -201,6 +160,48 @@ void JoustGame::startGame()
 void JoustGame::quitGame()
 {
 
+}
+
+void JoustGame::initResources()
+{
+    ImageManager::getImageManager()->addImage((char*)"data/media/hero0.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/hero1.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/hero2.png");
+
+    ImageManager::getImageManager()->addImage((char*)"data/mods/standard/media/tiles.png");
+
+    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy0.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy1.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy2.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy3.png");
+
+    ImageManager::getImageManager()->addImage((char*)"data/media/egg16.png");
+
+    ImageManager::getImageManager()->addImage((char*)"data/media/gate64.png");
+
+    ImageManager::getImageManager()->addImage((char*)"data/mods/standard/media/bg.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/intro.jpg");
+    ImageManager::getImageManager()->addImage((char*)"data/media/blackPart.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/hud.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/select.png");
+
+    ImageManager::getImageManager()->addImage((char*)"data/media/life0.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/life1.png");
+    ImageManager::getImageManager()->addImage((char*)"data/media/life2.png");
+
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/collisionJouster.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/jousterFall.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/collisionWall.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/gate.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/levelBegin.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/levelEnd.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/eggCrash.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/wingsFlap.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/step.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/burn.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/braking.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/lifeUp.wav");
+    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/menuMove.wav");
 }
 
 void JoustGame::onRender()

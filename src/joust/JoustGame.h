@@ -30,6 +30,8 @@ class JoustGame : public Game
         virtual void startGame();
         virtual void quitGame();
 
+        static void initResources();
+
     protected:
         virtual void onRender();     // screen and game items rendering
         virtual void onUpdate(float dt);
