@@ -51,10 +51,13 @@ public:
     float SPEED_DELAY_AIR_BRAKING;
     float JOUST_MAX_Y;
 
+    string JOUST_USER_DIR;
+    static string JOUST_DATA_DIR;
+
     void reloadFromFile(string mod);
 private:
     GameConstants();
-    void loadFromFile(string file);
+    bool loadFromFile(string file);
 };
 
 #endif // GameConstants_H_INCLUDED

@@ -17,30 +17,31 @@
 #include "GameScores.h"
 
 #include <fstream>
+#include <sys/stat.h>
+#include <errno.h>
 
-GameScores::GameScores(char* fileName)
+GameScores::GameScores(const string &userDir, const string &dataDir, const string &fileName)
 {
+    this->userDir = userDir;
+    this->dataDir = dataDir;
     this->fileName = fileName;
     loadScores();
     resetNewScores();
 }
 
-
-//void GameScores::reset(const char* initialFileName)
-//{
-//    loadScores(initialFileName);
-//    saveScores();
-//}
-
 void GameScores::loadScores()
 {
-    //const char* fileName="data/scores.dat";
-    printf ("Loading %s...\n", fileName);
-    ifstream f(fileName);
+    printf ("Loading %s...\n", fileName.c_str());
+    ifstream f((userDir + fileName).c_str());
     if (!f.is_open())
     {
-        printf ("[ERROR] Cannot open %s\n", fileName);
-        return;
+        if (userDir != dataDir)
+            f.open((dataDir + fileName).c_str());
+        if (!f.is_open())
+        {
+            printf ("[ERROR] Cannot open %s\n", fileName.c_str());
+            return;
+        }
     }
 
     int n;
@@ -61,7 +62,15 @@ void GameScores::loadScores()
 
 void GameScores::saveScores()
 {
-    ofstream f(fileName);
+    for (size_t w = fileName.find_first_of('/'); w != string::npos; w = fileName.find_first_of('/', w + 1))
+    {
+        int err = mkdir((userDir + fileName.substr(0, w)).c_str(), 0700);
+        if ((-1 == err) && (EEXIST != errno))
+        {
+            break;
+        }
+    }
+    ofstream f((userDir + fileName).c_str());
     if (!f.is_open()) return;
 
     int i;
@@ -77,7 +86,7 @@ void GameScores::saveScores()
 int GameScores::getScore(int n) { return scores[n]; }
 string GameScores::getName(int n) { return names[n]; }
 
-void GameScores::setFilename(char* fileName)
+void GameScores::setFilename(const string &fileName)
 {
     this->fileName = fileName;
     loadScores();

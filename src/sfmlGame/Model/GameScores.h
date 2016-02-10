@@ -25,12 +25,12 @@ using namespace std ;
 class GameScores {
 
 public:
-    GameScores(char* fileName);
+    GameScores(const string &userDir, const string &dataDir, const string &fileName);
 
     void loadScores();
     void saveScores();
 
-    void setFilename(char* fileName);
+    void setFilename(const string &fileName);
 
     int getScore(int n);
     string getName(int n);
@@ -47,7 +47,9 @@ protected:
     int newScore1;
     int newScore2;
 
-    char* fileName;
+    string userDir;
+    string dataDir;
+    string fileName;
 };
 
 #endif // GAMESCORES_H_INCLUDED

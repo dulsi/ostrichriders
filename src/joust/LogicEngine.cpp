@@ -43,7 +43,7 @@ LogicEngine::LogicEngine() : map(NULL)
         playerInput[i] = new PlayerInput();
         enteredName[i] = "";
     }
-    gameScores = new GameScores((char*)"data/mods/standard/scores.dat");
+    gameScores = new GameScores(GameConstants::getGameConstants()->JOUST_USER_DIR, GameConstants::JOUST_DATA_DIR, "mods/standard/scores.dat");
     buildMenu();
 
     isSound = true;
@@ -191,18 +191,18 @@ void LogicEngine::startGame(int nPlayers)
 
     // background
     if (!ImageManager::getImageManager()->reloadImage
-                    (IMAGE_BACKGROUND, ("data/mods/" + currentMod + "/media/bg.png").c_str()))
+                    (IMAGE_BACKGROUND, (GameConstants::JOUST_DATA_DIR + "mods/" + currentMod + "/media/bg.png").c_str()))
     {
         ImageManager::getImageManager()->reloadImage
-                    (IMAGE_BACKGROUND, (char*)"data/mods/standard/media/bg.png");
+                    (IMAGE_BACKGROUND, (GameConstants::JOUST_DATA_DIR + "mods/standard/media/bg.png").c_str());
     }
 
     // tiles
     if (!ImageManager::getImageManager()->reloadImage
-                    (IMAGE_TILES, ("data/mods/" + currentMod + "/media/tiles.png").c_str()))
+                    (IMAGE_TILES, (GameConstants::JOUST_DATA_DIR + "mods/" + currentMod + "/media/tiles.png").c_str()))
     {
         ImageManager::getImageManager()->reloadImage
-                    (IMAGE_TILES, (char*)"data/mods/standard/media/tiles.png");
+                    (IMAGE_TILES, (GameConstants::JOUST_DATA_DIR + "mods/standard/media/tiles.png").c_str());
     }
 
     // initialize values
@@ -286,13 +286,13 @@ void LogicEngine::startGame(int nPlayers)
 
 void LogicEngine::loadModData()
 {
-    string file = "data/mods/" + currentMod + "/config.dat";
+    string file = GameConstants::JOUST_DATA_DIR + "mods/" + currentMod + "/config.dat";
     ifstream f(file.c_str());
 
     //int nMaps = 0;
     if (!f.is_open())
     {
-        ifstream f("data/mods/standard/config.dat");
+        ifstream f((GameConstants::JOUST_DATA_DIR + "mods/standard/config.dat").c_str());
     }
 
     string c;
@@ -315,7 +315,7 @@ void LogicEngine::loadLevel()
     if (level2Load < 1) level2Load = 1;
     if (level2Load > gameMode.nMaps) level2Load = gameMode.nMaps;
 
-    string s = "data/mods/" + currentMod + "/maps/map";
+    string s = GameConstants::JOUST_DATA_DIR + "mods/" + currentMod + "/maps/map";
 
     if (level2Load < 10)
     {
@@ -330,7 +330,6 @@ void LogicEngine::loadLevel()
     s += ".dat";
 
     map->loadFromFile(s.c_str(), level2Load == 1);
-    //map->loadFromFile("data/maps/standard/map01.dat", level2Load == 1);
 }
 
 
@@ -733,15 +732,15 @@ void LogicEngine::update(float dt)
                 oldModChoice = mainMenu->getMenuEntry(MENU_MAIN_MOD)->getChoiceIndex();
                 if (oldModChoice == 0)
                 {
-                    gameScores->setFilename((char*)"data/mods/standard/scores.dat");
+                    gameScores->setFilename("mods/standard/scores.dat");
                 }
                 else if (oldModChoice == 1)
                 {
-                    gameScores->setFilename((char*)"data/mods/random/scores.dat");
+                    gameScores->setFilename("mods/random/scores.dat");
                 }
                 else if (oldModChoice == 2)
                 {
-                    gameScores->setFilename((char*)"data/mods/sandbox/scores.dat");
+                    gameScores->setFilename("mods/sandbox/scores.dat");
                 }
             }
 
@@ -1114,7 +1113,7 @@ void LogicEngine::loadConfig()
 
 void LogicEngine::saveConfig()
 {
-    ofstream f("data/game_config.dat");
+    ofstream f((GameConstants::getGameConstants()->JOUST_USER_DIR + "game_config.dat").c_str());
     if (!f.is_open()) return;
 
     f << "FULLSCREEN " << (isFullscreen ? "1\n" : "0\n");

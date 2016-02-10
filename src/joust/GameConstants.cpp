@@ -18,13 +18,46 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <sys/stat.h>
+#include <errno.h>
 
 #include "GameConstants.h"
 
+#ifdef __linux__
+#define JOUST_DATA_DIR_DEFAULT  "/usr/share/ostrichriders/"
+#else
+#define JOUST_DATA_DIR_DEFAULT  "./data/"
+#endif
+
+std::string GameConstants::JOUST_DATA_DIR = JOUST_DATA_DIR_DEFAULT;
+
 GameConstants::GameConstants()
 {
-    loadFromFile("data/game_config.dat");
-    loadFromFile("data/mods/standard/constants.dat");
+#ifdef __linux__
+    char *home = getenv("HOME");
+    if (home)
+    {
+        JOUST_USER_DIR = home;
+        if (JOUST_USER_DIR[JOUST_USER_DIR.length() - 1] != '/')
+        {
+            JOUST_USER_DIR +=  '/';
+        }
+        JOUST_USER_DIR += ".ostrichriders/";
+        int err = mkdir(JOUST_USER_DIR.c_str(), 0700);
+        if ((-1 == err) && (EEXIST != errno))
+        {
+            JOUST_USER_DIR = JOUST_DATA_DIR;
+        }
+    }
+#else
+    JOUST_USER_DIR = JOUST_DATA_DIR;
+#endif
+    bool success = loadFromFile(GameConstants::JOUST_USER_DIR + "game_config.dat");
+    if ((!success) && (GameConstants::JOUST_DATA_DIR != GameConstants::JOUST_USER_DIR))
+    {
+        loadFromFile(GameConstants::JOUST_DATA_DIR + "game_config.dat");
+    }
+    loadFromFile(GameConstants::JOUST_DATA_DIR + "mods/standard/constants.dat");
 }
 
  GameConstants* GameConstants::getGameConstants()
@@ -33,10 +66,10 @@ GameConstants::GameConstants()
    return &singleton;
  }
 
- void GameConstants::loadFromFile(string file)
+ bool GameConstants::loadFromFile(string file)
  {
     ifstream f(file.c_str());
-    if (!f.is_open()) return;
+    if (!f.is_open()) return false;
 
     //char c[64];
     string c;
@@ -75,10 +108,11 @@ GameConstants::GameConstants()
 	}
 
     f.close();
+    return true;
 }
 
 void GameConstants::reloadFromFile(string mod)
 {
-    loadFromFile("data/mods/standard/constants.dat");
-    loadFromFile("data/mods/" + mod + "/constants.dat");
+    loadFromFile(GameConstants::JOUST_DATA_DIR + "mods/standard/constants.dat");
+    loadFromFile(GameConstants::JOUST_DATA_DIR + "mods/" + mod + "/constants.dat");
 }

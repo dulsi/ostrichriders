@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="-ldata" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -26,6 +27,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
+				<Option parameters="-ldata" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
@@ -42,6 +44,7 @@
 				<Option object_output="obj/Windows/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
+				<Option parameters="-ldata" />
 				<Linker>
 					<Add option="-lsfml-audio-s" />
 					<Add option="-lsfml-graphics-s" />
@@ -90,6 +93,8 @@
 		<Unit filename="src/joust/PlayerEntity.h" />
 		<Unit filename="src/joust/PlayerInput.cpp" />
 		<Unit filename="src/joust/PlayerInput.h" />
+		<Unit filename="src/joust/RotatingTextEntity.cpp" />
+		<Unit filename="src/joust/RotatingTextEntity.h" />
 		<Unit filename="src/joust/SelectorEntity.cpp" />
 		<Unit filename="src/joust/SelectorEntity.h" />
 		<Unit filename="src/main.cpp" />

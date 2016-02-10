@@ -16,48 +16,6 @@
 
 #include "SoundManager.h"
 
-/*
-SoundManager::SoundManager()
-{
-}
-
-SoundManager::~SoundManager()
-{
-    printf("Releasing audio memory...\n");
-    for (unsigned int i = 0; i < soundBufferArray.size(); i++)
-    {
-        soundArray[i]->Stop();
-        delete(soundArray[i]);
-        delete(soundBufferArray[i]);
-    }
-    soundArray.clear();
-    soundBufferArray.clear();
-}
-
- SoundManager* SoundManager::getSoundManager()
- {
-   static SoundManager singleton;
-   return &singleton;
- }
-
-void SoundManager::addSound(char* fileName)
-{
-    printf("Loading sound: %s...\n", fileName);
-
-    sf::SoundBuffer* newSoundBuffer = new sf::SoundBuffer;
-    newSoundBuffer->LoadFromFile(fileName);
-    soundBufferArray.push_back(newSoundBuffer);
-
-    sf::Sound* newSound = new sf::Sound;
-    newSound->SetBuffer(*newSoundBuffer);
-    soundArray.push_back(newSound);
-}
-
-void SoundManager::playSound(int n)
-{
-    //soundArray[n]->Play();
-}
-*/
 SoundManager::SoundManager()
 {
 }
@@ -81,7 +39,7 @@ SoundManager::~SoundManager()
    return &singleton;
  }
 
-void SoundManager::addSound(char* fileName)
+void SoundManager::addSound(const char* fileName)
 {
     printf("Loading sound: %s...\n", fileName);
 

@@ -162,46 +162,46 @@ void JoustGame::quitGame()
 
 }
 
-void JoustGame::initResources()
+void JoustGame::initResources(const std::string &libDir)
 {
-    ImageManager::getImageManager()->addImage((char*)"data/media/hero0.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/hero1.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/hero2.png");
+    ImageManager::getImageManager()->addImage((libDir + "media/hero0.png").c_str());
+    ImageManager::getImageManager()->addImage((libDir + "media/hero1.png").c_str());
+    ImageManager::getImageManager()->addImage((libDir + "media/hero2.png").c_str());
 
-    ImageManager::getImageManager()->addImage((char*)"data/mods/standard/media/tiles.png");
+    ImageManager::getImageManager()->addImage((libDir + "mods/standard/media/tiles.png").c_str());
 
-    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy0.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy1.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy2.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/ennemy3.png");
+    ImageManager::getImageManager()->addImage((libDir + "media/ennemy0.png").c_str());
+    ImageManager::getImageManager()->addImage((libDir + "media/ennemy1.png").c_str());
+    ImageManager::getImageManager()->addImage((libDir + "media/ennemy2.png").c_str());
+    ImageManager::getImageManager()->addImage((libDir + "media/ennemy3.png").c_str());
 
-    ImageManager::getImageManager()->addImage((char*)"data/media/egg16.png");
+    ImageManager::getImageManager()->addImage((libDir + "media/egg16.png").c_str());
 
-    ImageManager::getImageManager()->addImage((char*)"data/media/gate64.png");
+    ImageManager::getImageManager()->addImage((libDir + "media/gate64.png").c_str());
 
-    ImageManager::getImageManager()->addImage((char*)"data/mods/standard/media/bg.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/intro.jpg");
-    ImageManager::getImageManager()->addImage((char*)"data/media/blackPart.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/hud.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/select.png");
+    ImageManager::getImageManager()->addImage((libDir + "mods/standard/media/bg.png").c_str());
+    ImageManager::getImageManager()->addImage((libDir + "media/intro.jpg").c_str());
+    ImageManager::getImageManager()->addImage((libDir + "media/blackPart.png").c_str());
+    ImageManager::getImageManager()->addImage((libDir + "media/hud.png").c_str());
+    ImageManager::getImageManager()->addImage((libDir + "media/select.png").c_str());
 
-    ImageManager::getImageManager()->addImage((char*)"data/media/life0.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/life1.png");
-    ImageManager::getImageManager()->addImage((char*)"data/media/life2.png");
+    ImageManager::getImageManager()->addImage((libDir + "media/life0.png").c_str());
+    ImageManager::getImageManager()->addImage((libDir + "media/life1.png").c_str());
+    ImageManager::getImageManager()->addImage((libDir + "media/life2.png").c_str());
 
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/collisionJouster.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/jousterFall.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/collisionWall.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/gate.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/levelBegin.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/levelEnd.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/eggCrash.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/wingsFlap.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/step.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/burn.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/braking.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/lifeUp.wav");
-    SoundManager::getSoundManager()->addSound((char*)"data/media/sound/menuMove.wav");
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/collisionJouster.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/jousterFall.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/collisionWall.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/gate.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/levelBegin.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/levelEnd.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/eggCrash.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/wingsFlap.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/step.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/burn.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/braking.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/lifeUp.wav").c_str());
+    SoundManager::getSoundManager()->addSound((libDir + "media/sound/menuMove.wav").c_str());
 }
 
 void JoustGame::onRender()

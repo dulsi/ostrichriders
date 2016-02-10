@@ -30,7 +30,7 @@ class JoustGame : public Game
         virtual void startGame();
         virtual void quitGame();
 
-        static void initResources();
+        static void initResources(const std::string &libDir);
 
     protected:
         virtual void onRender();     // screen and game items rendering
