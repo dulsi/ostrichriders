@@ -1,12 +1,13 @@
 Ostrich Riders
-by Seby and Suiland
+orginally by Seby and Suiland
+continued by Dennis Payne
 
-Contact: sebygames@gmail.com
+Contact: dulsi@identicalsoftware.com
 
-Developpement:
+Original Developpement:
 Seby <sebygames@gmail.com>
 
-Graphics:
+Original Graphics:
 Suiland
 ________________________________________________________
 
@@ -15,6 +16,14 @@ Description:
 Ostrich Riders is a free clone of the arcade game "Joust".
 It's a sort of fighting arcade game for one or two players, where the players, riding flying ostriches, have to collide the opponents while being vertically higher.
 When an opponent falls, it generates an egg. Egg has to be taken before a new and stronger opponent appears.
+
+Version 0.6.2 - 2016-02-11
+
+ChangeLog:
+- Update to the latest SFML library
+- Added a third player
+- Added rpm spec file along with desktop and appdata.xml files
+________________________________________________________
 
 Version 0.6.1 - 2009-09-26
 

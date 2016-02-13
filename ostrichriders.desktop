@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Ostrich Riders
+Comment=Knights flying on ostriches compete against other riders
+TryExec=OstrichRiders
+Exec=OstrichRiders %f
+Terminal=false
+Type=Application
+Icon=OstrichRiders
+Categories=Game;
+

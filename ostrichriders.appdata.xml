@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2016 Dennis Payne <dulsi@identicalsoftware.com> -->
+<component type="desktop">
+ <id>ostrichriders.desktop</id>
+ <metadata_license>CC0-1.0</metadata_license>
+ <project_license>GPL-3.0+</project_license>
+ <name>Ostrich Riders</name>
+ <summary>Knights flying on ostriches compete against other riders</summary>
+ <description>
+  <p>
+   Enemy knights are invading the kingdom. As one of the elite ostrich riders,
+   it is your duty to defend the kingdom. With lance in hand you fly off.
+   Remember to stay above your opponent least you fall to his lance. Collect
+   the eggs least your opponent hatches stronger than before. Work togther
+   with other knights.
+  </p>
+  <p>
+   Supports up to three players in arcade action.
+  </p>
+ </description>
+ <screenshots>
+  <screenshot type="default">
+   <image>http://www.identicalsoftware.com/ostrichriders/appdata/play.png</image>
+   <caption>Playing the game</caption>
+  </screenshot>
+  <screenshot>
+   <image>http://www.identicalsoftware.com/ostrichriders/appdata/title.png</image>
+   <caption>Title screen</caption>
+  </screenshot>
+ </screenshots>
+ <url type="homepage">http://www.identicalsoftware.com/ostrichriders</url>
+ <updatecontact>dulsi@identicalsoftware.com</updatecontact>
+</component>
