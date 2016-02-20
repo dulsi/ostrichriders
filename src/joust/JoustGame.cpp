@@ -97,24 +97,20 @@ void JoustGame::startGame()
                         LogicEngine::getLogicEngine()->startIntro();
                     }
 
-                    // jumping (player 2)
-                    else if (event.key.code == (sf::Keyboard::Key)(lEngine->getKeys(2).jump))
+                    bool processed = false;
+                    // Jumping
+                    for (int i = 0; i < NPLAYERS_MAX; ++i)
                     {
-                        lEngine->getPlayerInput(2)->jump = true;
-                    }
-
-                    else if (event.key.code == (sf::Keyboard::Key)(lEngine->getKeys(1).jump))
-                    {
-                        lEngine->getPlayerInput(1)->jump = true;
-                    }
-
-                    else if (event.key.code == (sf::Keyboard::Key)(lEngine->getKeys(0).jump))
-                    {
-                        lEngine->getPlayerInput(0)->jump = true;
+                        if (event.key.code == (sf::Keyboard::Key)(lEngine->getKeys(i).jump))
+                        {
+                            lEngine->getPlayerInput(i)->jump = true;
+                            processed = true;
+                            break;
+                        }
                     }
 
                     // Pause
-                    else if (event.key.code == sf::Keyboard::P)
+                    if ((!processed) && (event.key.code == sf::Keyboard::P))
                     {
                         lEngine->pauseOrUnpause();
                         getTimePassed();
