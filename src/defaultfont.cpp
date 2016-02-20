@@ -17,7 +17,7 @@ namespace OstrichRiders
     {
         if (init)
         {
-            bool success = defFont.loadFromFile("/usr/share/fonts/liberation/LiberationSans-Regular.ttf");
+            bool success = defFont.loadFromFile(JOUST_FONT);
             if (!success)
             {
                 printf("Failed to load font %s\n", JOUST_FONT);
