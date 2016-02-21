@@ -88,7 +88,9 @@ void JoustGame::startGame()
             {
                 if (event.type == sf::Event::JoystickButtonPressed)
                 {
-                    lEngine->getPlayerInput(0)->jump = true;
+                    int p = event.joystickButton.joystickId;
+                    if (p < NPLAYERS_MAX)
+                        lEngine->getPlayerInput(p)->jump = true;
                 }
 
                 if (event.type == sf::Event::KeyPressed) {
