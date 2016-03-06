@@ -15,6 +15,7 @@
   */
 
 #include "SoundManager.h"
+#include <stdio.h>
 
 SoundManager::SoundManager()
 {

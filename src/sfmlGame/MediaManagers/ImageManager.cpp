@@ -15,6 +15,7 @@
   */
 
 #include "ImageManager.h"
+#include <stdio.h>
 
 ImageManager::ImageManager()
 {
