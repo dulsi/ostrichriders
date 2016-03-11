@@ -9,6 +9,7 @@ Source: http://www.identicalsoftware.com/ostrichriders/%{name}-%{version}.tgz
 BuildRequires: SFML-devel
 BuildRequires: desktop-file-utils
 BuildRequires: fontconfig-devel
+BuildRequires: pkgconfig
 
 %description
 Enemy knights are invading the kingdom. As one of the elite ostrich riders,
