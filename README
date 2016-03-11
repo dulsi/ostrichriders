@@ -17,6 +17,15 @@ Ostrich Riders is a free clone of the arcade game "Joust".
 It's a sort of fighting arcade game for one or two players, where the players, riding flying ostriches, have to collide the opponents while being vertically higher.
 When an opponent falls, it generates an egg. Egg has to be taken before a new and stronger opponent appears.
 
+Version 0.6.3 - 2016-03-10
+
+ChangeLog:
+- Multiple joystick support added
+- Changed from a hard coded path to using fontconfig to find the font.
+- Detect if /usr/share/ostrichriders exists. If not found look in local data directory for files.
+________________________________________________________
+
+
 Version 0.6.2 - 2016-02-11
 
 ChangeLog:
