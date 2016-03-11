@@ -104,7 +104,7 @@ void LogicEngine::startIntro()
     menuEntity->setMoveSound(SOUND_MENU_MOVE);
 
     TextEntity* te0 = new TextEntity(&OstrichRiders::GetDefaultFont(), 20, 880.f, 477.f);
-    te0->setText("Ostrich Riders V0.6.2");
+    te0->setText("Ostrich Riders V" + APP_VERSION);
     te0->setAlignment(TextEntity::ALIGN_CENTER);
 
     TextEntity* te1 = new TextEntity(&OstrichRiders::GetDefaultFont(), 18 , 770.f, 520.f);

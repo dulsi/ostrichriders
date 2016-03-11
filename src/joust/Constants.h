@@ -20,7 +20,7 @@
 #include <string>
 
 const std::string APP_NAME =      "Ostrich Riders";
-const std::string APP_VERSION =   "0.6.2";
+const std::string APP_VERSION =   "0.6.3";
 
 const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 768;

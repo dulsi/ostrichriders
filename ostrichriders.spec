@@ -1,6 +1,6 @@
 Summary: Knights flying on ostriches compete against other riders
 Name: ostrichriders
-Version: 0.6.2
+Version: 0.6.3
 Release: 1%{?dist}
 License: GPLv3+
 Url: http://www.identicalsoftware.com/ostrichriders
@@ -21,18 +21,10 @@ knights.
 %setup -q
 
 %build
-make %{?_smp_mflags} -fOstrichRiders.cbp.mak debug
+make %{?_smp_mflags}
 
 %install
-mkdir -p %{buildroot}/usr/bin
-cp bin/Debug/OstrichRiders %{buildroot}/usr/bin
-mkdir -p %{buildroot}/usr/share/ostrichriders
-mkdir -p %{buildroot}/usr/share/icons/hicolor
-mkdir -p %{buildroot}/usr/share/appdata
-cp -R data/* %{buildroot}/usr/share/ostrichriders
-cp -R icons/* %{buildroot}/usr/share/icons/hicolor/
-cp ostrichriders.appdata.xml %{buildroot}/usr/share/appdata
-desktop-file-install --dir=%{buildroot}/usr/share/applications ostrichriders.desktop
+make prefix=%{buildroot} install
 
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
@@ -55,5 +47,8 @@ fi
 %{_datadir}/appdata/ostrichriders.appdata.xml
 
 %changelog
+* Thu Mar 10 2016 Dennis Payne <dulsi@identicalsoftware.com> - 0.6.3-1
+- Moved install into the makefile.
+
 * Thu Feb 11 2016 Dennis Payne <dulsi@identicalsoftware.com> - 0.6.2-1
 - First ostrich riders spec file.
