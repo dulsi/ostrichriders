@@ -901,15 +901,16 @@ void LogicEngine::update(float dt)
                 gameScores->addScore(score[scoringPlayer], inputEntity->getInputText());
                 inputEntity->setDying(true);
 
-                if (scoringPlayer == 0 && nPlayers >= 2 && score[1] > gameScores->getScore(9))
+                for (int i = scoringPlayer + 1; i < nPlayers; i++)
                 {
-                    prepareEnterName(1);
-                    inputEntity->setAge(4.0f);
+                    if (score[i] > gameScores->getScore(9))
+                    {
+                        prepareEnterName(i);
+                        inputEntity->setAge(4.0f);
+                        return;
+                    }
                 }
-                else
-                {
-                    startIntro();
-                }
+                startIntro();
             }
 
 

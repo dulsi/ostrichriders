@@ -18,6 +18,7 @@
 #define GAMESCORES_H_INCLUDED
 
 #include <string>
+#include <vector>
 
 using namespace std ;
 
@@ -44,8 +45,7 @@ public:
 protected:
     int scores[10];
     string names[10];
-    int newScore1;
-    int newScore2;
+    vector<int> newScore;
 
     string userDir;
     string dataDir;

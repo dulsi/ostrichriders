@@ -111,24 +111,23 @@ void GameScores::addScore(int score, string name)
 
     saveScores();
 
-    if (newScore1 == -1)
+    for (vector<int>::iterator itrScore = newScore.begin(); itrScore != newScore.end(); itrScore++)
     {
-        newScore1 = i;
+        if (i < *itrScore)
+            (*itrScore)++;
     }
-    else if (newScore2 == -1)
-    {
-        newScore2 = i;
-        if (newScore2 < newScore1) newScore1++;
-    }
+    newScore.push_back(i);
 }
 
 bool GameScores::isNewScore(int n)
 {
-    return (newScore1 == n || newScore2 == n);
+    for (vector<int>::iterator i = newScore.begin(); i != newScore.end(); i++)
+        if (*i == n)
+            return true;
+    return false;
 }
 
 void GameScores::resetNewScores()
 {
-    newScore1 = -1;
-    newScore2 = -1;
+    newScore.resize(0);
 }
