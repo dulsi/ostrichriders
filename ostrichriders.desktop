@@ -6,5 +6,5 @@ Exec=OstrichRiders %f
 Terminal=false
 Type=Application
 Icon=OstrichRiders
-Categories=Game;
+Categories=Game;ArcadeGame;
 
