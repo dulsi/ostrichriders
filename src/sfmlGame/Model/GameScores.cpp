@@ -101,6 +101,8 @@ void GameScores::addScore(int score, string name)
     {
         if (score > scores[i]) break;
     }
+    if (i > 9)
+        return;
     for (int j = 9; j > i; j--)
     {
         scores[j] = scores[j - 1];
