@@ -16,6 +16,13 @@ DATADIR ?= $(PREFIX)/share
 DESTBINDIR = $(DESTDIR)$(BINDIR)
 DESTDATADIR = $(DESTDIR)$(DATADIR)
 
+ifdef GAMEDATADIR
+	CXXFLAGS += -DGAMEDATADIR=\"$(GAMEDATADIR)/\"
+else
+	GAMEDATADIR = $(DATADIR)/ostrichriders
+endif
+DESTGAMEDATADIR = $(DESTDIR)$(GAMEDATADIR)
+
 all: $(OSTRICHRIDERS_EXE)
 
 $(OSTRICHRIDERS_EXE): $(OSTRICHRIDERS_OBJ)
@@ -26,10 +33,10 @@ $(OSTRICHRIDERS_EXE): $(OSTRICHRIDERS_OBJ)
 
 install: all
 	if test ! -d $(DESTBINDIR); then mkdir -p $(DESTBINDIR); fi
-	if test ! -d $(DESTDATADIR)/ostrichriders; then mkdir -p $(DESTDATADIR)/ostrichriders; fi
+	if test ! -d $(DESTGAMEDATADIR); then mkdir -p $(DESTGAMEDATADIR); fi
 	if test ! -d $(DESTDATADIR)/appdata; then mkdir -p $(DESTDATADIR)/appdata; fi
 	if test ! -d $(DESTDATADIR)/icons/hicolor; then mkdir -p $(DESTDATADIR)/icons/hicolor; fi
-	cp -R data/* $(DESTDATADIR)/ostrichriders/
+	cp -R data/* $(DESTGAMEDATADIR)/
 	cp -R ostrichriders.appdata.xml $(DESTDATADIR)/appdata/
 	cp -R icons/* $(DESTDATADIR)/icons/hicolor/
 	cp $(OSTRICHRIDERS_EXE) $(DESTBINDIR)

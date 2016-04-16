@@ -23,11 +23,15 @@
 
 #include "GameConstants.h"
 
+#ifdef GAMEDATADIR
+#define JOUST_DATA_DIR_DEFAULT  GAMEDATADIR
+#else
 #ifdef __linux__
 #define JOUST_DATA_DIR_DEFAULT  "/usr/share/ostrichriders/"
 #else
 #define JOUST_DATA_DIR_DEFAULT  "./data/"
-#endif
+#endif // __linux__
+#endif // GAMEDATADIR
 
 std::string GameConstants::JOUST_DATA_DIR = JOUST_DATA_DIR_DEFAULT;
 
