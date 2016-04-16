@@ -1,10 +1,9 @@
 [Desktop Entry]
 Name=Ostrich Riders
 Comment=Knights flying on ostriches compete against other riders
-TryExec=OstrichRiders
-Exec=OstrichRiders %f
+TryExec=ostrichriders
+Exec=ostrichriders %f
 Terminal=false
 Type=Application
-Icon=OstrichRiders
+Icon=ostrichriders
 Categories=Game;ArcadeGame;
-

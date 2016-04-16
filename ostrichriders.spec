@@ -6,6 +6,7 @@ License: GPLv3+
 Url: http://www.identicalsoftware.com/ostrichriders
 Group: Amusements/Games
 Source: http://www.identicalsoftware.com/ostrichriders/%{name}-%{version}.tgz
+
 BuildRequires: SFML-devel
 BuildRequires: desktop-file-utils
 BuildRequires: fontconfig-devel
@@ -15,8 +16,8 @@ BuildRequires: pkgconfig
 Enemy knights are invading the kingdom. As one of the elite ostrich riders,
 it is your duty to defend the kingdom. With lance in hand you fly off.
 Remember to stay above your opponent least you fall to his lance. Collect the
-eggs least your opponent hatches stronger than before. Work togther with other
-knights.
+eggs least your opponent hatches stronger than before. Work together with
+other knights.
 
 %prep
 %setup -q
@@ -41,13 +42,16 @@ fi
 
 %files
 %doc README LICENCE
-%{_bindir}/*
-%{_datadir}/ostrichriders
-%{_datadir}/icons/hicolor/*/apps/OstrichRiders.png
-%{_datadir}/applications/ostrichriders.desktop
-%{_datadir}/appdata/ostrichriders.appdata.xml
+%{_bindir}/%{name}
+%{_datadir}/%{name}/
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Sat Apr 16 2016 Rémi Verschelde <akien@mageia.org> - 0.6.3-2
+- Make binary name lowercase
+
 * Thu Mar 10 2016 Dennis Payne <dulsi@identicalsoftware.com> - 0.6.3-1
 - Moved install into the makefile.
 
