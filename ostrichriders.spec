@@ -1,7 +1,7 @@
 Summary: Knights flying on ostriches compete against other riders
 Name: ostrichriders
 Version: 0.6.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Url: http://www.identicalsoftware.com/ostrichriders
 Group: Amusements/Games
@@ -26,7 +26,7 @@ other knights.
 make %{?_smp_mflags}
 
 %install
-make prefix=%{buildroot} install
+make DESTDIR=%{buildroot} PREFIX=%{_prefix} install
 
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
@@ -50,6 +50,7 @@ fi
 
 %changelog
 * Sat Apr 16 2016 Rémi Verschelde <akien@mageia.org> - 0.6.3-2
+- Add support for DESTDIR parameter, and overriding BINDIR and PREFIX
 - Make binary name lowercase
 
 * Thu Mar 10 2016 Dennis Payne <dulsi@identicalsoftware.com> - 0.6.3-1
