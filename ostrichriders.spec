@@ -1,7 +1,7 @@
 Summary: Knights flying on ostriches compete against other riders
 Name: ostrichriders
-Version: 0.6.3
-Release: 2%{?dist}
+Version: 0.6.4
+Release: 1%{?dist}
 License: GPLv3+
 Url: http://www.identicalsoftware.com/ostrichriders
 Group: Amusements/Games
@@ -49,6 +49,9 @@ fi
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Thu Sep 15 2016 Dennis Payne <dulsi@identicalsoftware.com> - 0.6.4-1
+- New release.
+
 * Sat Apr 16 2016 Rémi Verschelde <akien@mageia.org> - 0.6.3-2
 - Add support for DESTDIR parameter, and overriding BINDIR and PREFIX
 - Make binary name lowercase
