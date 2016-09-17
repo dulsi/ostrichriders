@@ -1,7 +1,7 @@
 Summary: Knights flying on ostriches compete against other riders
 Name: ostrichriders
 Version: 0.6.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Url: http://www.identicalsoftware.com/ostrichriders
 Group: Amusements/Games
@@ -11,6 +11,8 @@ BuildRequires: SFML-devel
 BuildRequires: desktop-file-utils
 BuildRequires: fontconfig-devel
 BuildRequires: pkgconfig
+BuildRequires: libappstream-glib
+Requires: hicolor-icon-theme
 
 %description
 Enemy knights are invading the kingdom. As one of the elite ostrich riders,
@@ -23,10 +25,13 @@ other knights.
 %setup -q
 
 %build
-make %{?_smp_mflags}
+%make_build
 
 %install
-make DESTDIR=%{buildroot} PREFIX=%{_prefix} install
+%make_install PREFIX=%{_prefix}
+
+%check
+appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata.xml
 
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
@@ -41,7 +46,8 @@ fi
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files
-%doc README LICENCE
+%license LICENCE
+%doc README
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
@@ -49,6 +55,12 @@ fi
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Fri Sep 16 2016 Dennis Payne <dulsi@identicalsoftware.com> - 0.6.4-2
+- Added app data validation
+- Used some macros for common tasks
+- Require hicolor icon theme
+- Mark license file correctly
+
 * Thu Sep 15 2016 Dennis Payne <dulsi@identicalsoftware.com> - 0.6.4-1
 - New release.
 
