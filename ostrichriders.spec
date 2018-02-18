@@ -1,12 +1,13 @@
 Summary: Knights flying on ostriches compete against other riders
 Name: ostrichriders
 Version: 0.6.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 Url: http://www.identicalsoftware.com/ostrichriders
 Group: Amusements/Games
 Source: http://www.identicalsoftware.com/ostrichriders/%{name}-%{version}.tgz
-
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: SFML-devel
 BuildRequires: desktop-file-utils
 BuildRequires: fontconfig-devel
@@ -55,6 +56,9 @@ fi
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Sun Feb 18 2018 Dennis Payne <dulsi@identicalsoftware.com> - 0.6.4-3
+- Add build requirement of gcc-c++.
+
 * Fri Sep 16 2016 Dennis Payne <dulsi@identicalsoftware.com> - 0.6.4-2
 - Added app data validation
 - Used some macros for common tasks
