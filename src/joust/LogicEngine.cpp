@@ -31,7 +31,7 @@
 #include "../defaultfont.h"
 
 
-LogicEngine::LogicEngine() : map(NULL)
+LogicEngine::LogicEngine() : map(NULL), arcade(false)
 {
     printf("LogicEngine Singleton created\n");
 
@@ -47,7 +47,7 @@ LogicEngine::LogicEngine() : map(NULL)
     buildMenu();
 
     isSound = true;
-    invertedPlayers = true;
+    invertedPlayers = false;
 
     oldModChoice = 0;
 }
@@ -677,7 +677,7 @@ void LogicEngine::update(float dt)
                         if (mainMenu->getSelectedEntry() == MENU_MAIN_START)
                         {
                             int n = mainMenu->getMenuEntry(MENU_MAIN_PLAYERS)->getChoiceIndex() + 1;
-                            if (n == 1)
+                            if ((!arcade) && (n == 1))
                                 startChoosing();
                             else
                                 startGame(n);
@@ -946,12 +946,15 @@ void LogicEngine::prepareGameOver()
     gameOverText->setText(L"GAME OVER");
     gameOverText->setAlignment(TextEntity::ALIGN_CENTER);
 
-    for (int i = 0; i < nPlayers; i++)
+    if (!arcade)
     {
-        if (score[i] > gameScores->getScore(9))
+        for (int i = 0; i < nPlayers; i++)
         {
-            prepareEnterName(i);
-            return;
+            if (score[i] > gameScores->getScore(9))
+            {
+                prepareEnterName(i);
+                return;
+            }
         }
     }
 

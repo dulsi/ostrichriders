@@ -27,7 +27,7 @@ class JoustGame : public Game
         JoustGame();
         virtual ~JoustGame();
 
-        virtual void startGame();
+        virtual void startGame(bool arcadeMode);
         virtual void quitGame();
 
         static void initResources(const std::string &libDir);

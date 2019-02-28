@@ -21,6 +21,7 @@ int dirExists(const char *path)
 
 int main(int argc, char *argv[])
 {
+    bool arcade = false;
     char opt;
     static struct option long_options[] =
     {
@@ -33,7 +34,7 @@ int main(int argc, char *argv[])
         GameConstants::JOUST_DATA_DIR = "./data/";
     }
 #endif
-    while ((opt = getopt_long(argc,argv,"l:", long_options, NULL)) != EOF)
+    while ((opt = getopt_long(argc,argv,"l:a", long_options, NULL)) != EOF)
     {
         switch (opt)
         {
@@ -48,6 +49,8 @@ int main(int argc, char *argv[])
                 GameConstants::JOUST_DATA_DIR = libDir;
             }
             break;
+        case 'a':
+            arcade = true;
         default:
             break;
         }
@@ -55,7 +58,7 @@ int main(int argc, char *argv[])
     JoustGame::initResources(GameConstants::JOUST_DATA_DIR);
 
     JoustGame game;
-    game.startGame();
+    game.startGame(arcade);
 
 
     cout << "Thanks for playing !" << endl;

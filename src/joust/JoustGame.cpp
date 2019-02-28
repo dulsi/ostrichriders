@@ -37,11 +37,13 @@ JoustGame::~JoustGame()
 {
 }
 
-void JoustGame::startGame()
+void JoustGame::startGame(bool arcadeMode)
 {
     GameConstants::getGameConstants();
 
     LogicEngine* lEngine = LogicEngine::getLogicEngine();
+    if (arcadeMode)
+        lEngine->setArcadeMode();
 
     LogicEngine::getLogicEngine()->setRenderWindow(app);
     LogicEngine::getLogicEngine()->startIntro();

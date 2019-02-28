@@ -92,6 +92,7 @@ public:
     bool isMultiplayer();
     bool canEndGameOver();
 
+    void setArcadeMode() { arcade = true; }
     void setRenderWindow(sf::RenderWindow* app);
     void setBraking(bool braking);
 
@@ -216,6 +217,7 @@ private:
     SelectorEntity* selectorEntity;
 
     bool invertedPlayers;
+    bool arcade;
     int oldModChoice;
 
     keysStruct keys[3];
