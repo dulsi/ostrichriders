@@ -31,6 +31,11 @@ Game::Game(int screenWidth, int screenHeight, std::string windowsTitle, bool ful
     else
         app = new sf::RenderWindow(sf::VideoMode(this->screenWidth, this->screenHeight), windowsTitle); // , sf::Style::Close);
     app->setFramerateLimit(60);
+    sf::View view;
+    view = app->getView();
+    view.setSize(screenWidth, screenHeight);
+    view.setCenter(screenWidth /2 , screenHeight / 2);
+    app->setView(view);
 }
 
 Game::~Game()
