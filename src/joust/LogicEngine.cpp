@@ -100,7 +100,7 @@ void LogicEngine::startIntro()
     menuState = MENU_STATE_MAIN;
 
     new ScoresEntity(&OstrichRiders::GetDefaultFont(), 17, gameScores, 30.f, 475.f, 242.f, 27.f);
-    menuEntity = new MenuEntity(&OstrichRiders::GetDefaultFont(), 20, mainMenu, 512.f, 502.f, 42.f);
+    menuEntity = new MenuEntity(&OstrichRiders::GetDefaultFont(), 20, (arcade ? arcadeMenu : mainMenu), 512.f, 502.f, 42.f);
     menuEntity->setMoveSound(SOUND_MENU_MOVE);
 
     TextEntity* te0 = new TextEntity(&OstrichRiders::GetDefaultFont(), 20, 880.f, 477.f);
@@ -664,99 +664,127 @@ void LogicEngine::update(float dt)
     {
         case GAME_INTRO:
         {
-            if (menuEntity->getButtonPressed())
+            if (arcade)
             {
-                switch (menuState)
+                if (menuEntity->getButtonPressed())
                 {
-                    case MENU_STATE_MAIN:
+                    if (arcadeMenu->getSelectedEntry() == MENU_ARCADE_START)
                     {
-                        if (mainMenu->getSelectedEntry() == MENU_MAIN_START)
-                        {
-                            int n = mainMenu->getMenuEntry(MENU_MAIN_PLAYERS)->getChoiceIndex() + 1;
-                            if ((!arcade) && (n == 1))
-                                startChoosing();
-                            else
-                                startGame(n);
-                        }
-                        if (mainMenu->getSelectedEntry() == MENU_MAIN_OPTIONS)
-                        {
-                            menuEntity->setMenu(optionMenu);
-                            menuState = MENU_STATE_OPTIONS;
-                        }
-                        if (mainMenu->getSelectedEntry() == MENU_MAIN_EXIT)
-                        {
-                            app->close();
-                        }
-                        break;
+                        startGame(1);
                     }
-
-                    case MENU_STATE_OPTIONS:
+                    if (arcadeMenu->getSelectedEntry() == MENU_ARCADE_EXIT)
                     {
-                        if (optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS1
-                         || optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS2
-                         || optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS3)
-                        {
-                            menuEntity->setMenu(controlMenu);
-                            controlMenu->init();
-                            menuState = MENU_STATE_CONTROLS;
-                        }
-                        if (optionMenu->getSelectedEntry() == MENU_OPTION_BACK)
-                        {
-                            isFullscreen = optionMenu->getMenuEntry(MENU_OPTION_FULLSCREEN)->getChoiceIndex() == 0;
-                            menuEntity->setMenu(mainMenu);
-                            menuState = MENU_STATE_MAIN;
-
-                            saveConfig();
-                        }
-                        break;
+                        app->close();
                     }
-
-                    case MENU_STATE_CONTROLS:
-                    {
-                        /*if (controlMenu->getAllKeysDone())
-                        {
-                            menuEntity->setMenu(controlMenu);
-                            menuState = MENU_STATE_CONTROLS;
-                        }
-                        break;*/
-                    }
+                    break;
+                }
+                if (playerInput[1]->start)
+                {
+                    startGame(2);
+                    break;
+                }
+                else if (playerInput[0]->start)
+                {
+                    startGame(1);
+                    break;
                 }
             }
-
-            if (oldModChoice != mainMenu->getMenuEntry(MENU_MAIN_MOD)->getChoiceIndex())
+            else
             {
-                oldModChoice = mainMenu->getMenuEntry(MENU_MAIN_MOD)->getChoiceIndex();
-                if (oldModChoice == 0)
+                if (menuEntity->getButtonPressed())
                 {
-                    gameScores->setFilename("mods/standard/scores.dat");
-                }
-                else if (oldModChoice == 1)
-                {
-                    gameScores->setFilename("mods/random/scores.dat");
-                }
-                else if (oldModChoice == 2)
-                {
-                    gameScores->setFilename("mods/sandbox/scores.dat");
-                }
-            }
+                    switch (menuState)
+                    {
+                        case MENU_STATE_MAIN:
+                        {
+                            if (mainMenu->getSelectedEntry() == MENU_MAIN_START)
+                            {
+                                int n = mainMenu->getMenuEntry(MENU_MAIN_PLAYERS)->getChoiceIndex() + 1;
+                                if (n == 1)
+                                    startChoosing();
+                                else
+                                    startGame(n);
+                            }
+                            if (mainMenu->getSelectedEntry() == MENU_MAIN_OPTIONS)
+                            {
+                                menuEntity->setMenu(optionMenu);
+                                menuState = MENU_STATE_OPTIONS;
+                            }
+                            if (mainMenu->getSelectedEntry() == MENU_MAIN_EXIT)
+                            {
+                                app->close();
+                            }
+                            break;
+                        }
 
-            if (menuState == MENU_STATE_CONTROLS)
-            {
-                if (controlMenu->getAllKeysDone())
-                {
-                    menuEntity->setMenu(optionMenu);
-                    menuState = MENU_STATE_OPTIONS;
+                        case MENU_STATE_OPTIONS:
+                        {
+                            if (optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS1
+                             || optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS2
+                             || optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS3)
+                            {
+                                menuEntity->setMenu(controlMenu);
+                                controlMenu->init();
+                                menuState = MENU_STATE_CONTROLS;
+                            }
+                            if (optionMenu->getSelectedEntry() == MENU_OPTION_BACK)
+                            {
+                                isFullscreen = optionMenu->getMenuEntry(MENU_OPTION_FULLSCREEN)->getChoiceIndex() == 0;
+                                menuEntity->setMenu(mainMenu);
+                                menuState = MENU_STATE_MAIN;
 
-                    int p = 0;
-                    if (optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS2)
-                        p = 1;
-                    if (optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS3)
-                        p = 2;
-                    keys[p].left   = controlMenu->getKey(MENU_CONTROL_LEFT);
-                    keys[p].right  = controlMenu->getKey(MENU_CONTROL_RIGHT);
-                    keys[p].jump   = controlMenu->getKey(MENU_CONTROL_JUMP);
+                                saveConfig();
+                            }
+                            break;
+                        }
+
+                        case MENU_STATE_CONTROLS:
+                        {
+                            /*if (controlMenu->getAllKeysDone())
+                            {
+                                menuEntity->setMenu(controlMenu);
+                                menuState = MENU_STATE_CONTROLS;
+                            }
+                            break;*/
+                        }
+                    }
                 }
-                break;
+
+                if (oldModChoice != mainMenu->getMenuEntry(MENU_MAIN_MOD)->getChoiceIndex())
+                {
+                    oldModChoice = mainMenu->getMenuEntry(MENU_MAIN_MOD)->getChoiceIndex();
+                    if (oldModChoice == 0)
+                    {
+                        gameScores->setFilename("mods/standard/scores.dat");
+                    }
+                    else if (oldModChoice == 1)
+                    {
+                        gameScores->setFilename("mods/random/scores.dat");
+                    }
+                    else if (oldModChoice == 2)
+                    {
+                        gameScores->setFilename("mods/sandbox/scores.dat");
+                    }
+                }
+
+                if (menuState == MENU_STATE_CONTROLS)
+                {
+                    if (controlMenu->getAllKeysDone())
+                    {
+                        menuEntity->setMenu(optionMenu);
+                        menuState = MENU_STATE_OPTIONS;
+
+                        int p = 0;
+                        if (optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS2)
+                            p = 1;
+                        if (optionMenu->getSelectedEntry() == MENU_OPTION_CONTROLS3)
+                            p = 2;
+                        keys[p].left   = controlMenu->getKey(MENU_CONTROL_LEFT);
+                        keys[p].right  = controlMenu->getKey(MENU_CONTROL_RIGHT);
+                        keys[p].jump   = controlMenu->getKey(MENU_CONTROL_JUMP);
+                    }
+                    break;
+                }
             }
 
             break;
@@ -1055,6 +1083,14 @@ void LogicEngine::buildMenu()
 
     MenuEntry* entryExitGame = new MenuEntry(L"Exit", MenuEntry::typeButton);
     mainMenu->addEntry(entryExitGame);
+
+    arcadeMenu = new Menu(L"Menu");
+
+    MenuEntry* entryStartGame2 = new MenuEntry(L"Press 1P or 2P", MenuEntry::typeButton);
+    arcadeMenu->addEntry(entryStartGame2);
+
+    MenuEntry* entryExitGame2 = new MenuEntry(L"Exit", MenuEntry::typeButton);
+    arcadeMenu->addEntry(entryExitGame2);
 
 
     optionMenu = new Menu(L"Options");

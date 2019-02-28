@@ -46,6 +46,9 @@ const int MENU_MAIN_MOD      = 2;
 const int MENU_MAIN_OPTIONS  = 3;
 const int MENU_MAIN_EXIT     = 4;
 
+const int MENU_ARCADE_START    = 0;
+const int MENU_ARCADE_EXIT     = 1;
+
 const int MENU_OPTION_FULLSCREEN    = 0;
 const int MENU_OPTION_CONTROLS1     = 1;
 const int MENU_OPTION_CONTROLS2     = 2;
@@ -202,6 +205,7 @@ private:
     TextInputEntity* inputEntity;
 
     Menu* mainMenu;
+    Menu* arcadeMenu;
     Menu* optionMenu;
     Menu* controlMenu;
     MenuEntity* menuEntity;
