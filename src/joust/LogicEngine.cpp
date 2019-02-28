@@ -178,9 +178,6 @@ void LogicEngine::startGame(int nPlayers)
     }
     //string->SetText(intStream.str());
 
-
-    if (nPlayers > 1) invertedPlayers = false;
-
     // load mod data
     loadModData();
 
@@ -207,27 +204,26 @@ void LogicEngine::startGame(int nPlayers)
 
     // initialize values
     this->nPlayers = nPlayers;
+    if (arcade)
+        this->nPlayers = 2;
 
     EntityManager::getEntityManager()->clean();
 
     level = 1;
-    //level = 8;
     // create the map
     if (map)
         delete map;
     map = new JoustGameMap(MAP_WIDTH, MAP_HEIGHT);
 
     // create player(s)
-    for (int i = 0; i < nPlayers; i++)
+    for (int i = 0; i < NPLAYERS_MAX; i++)
     {
         //createPlayer(i, map);
-        playerStatus[i] = PLAYER_STATUS_NEW;
+        playerStatus[i] = ((i < nPlayers) ? PLAYER_STATUS_NEW : PLAYER_STATUS_DEATH);
         playerDelay[i] = 0.4f;
-        lives[i] = INITIAL_LIVES;
+        lives[i] = ((i < nPlayers) ? INITIAL_LIVES : 0);
         score[i] = 0;
     }
-    //lives[1] = 12;  // for Christine
-    //level = 3;
 
     // create the tile map
     mapEntity = new JoustTileMapEntity(ImageManager::getImageManager()->getImage(IMAGE_TILES),
@@ -249,7 +245,7 @@ void LogicEngine::startGame(int nPlayers)
 
     lifeEntity[0] = new LifeEntity(ImageManager::getImageManager()->getImage(invertedPlayers ? IMAGE_LIFE1 : IMAGE_LIFE0), 273.0f, yText + 3, &lives[0]);
 
-    if (nPlayers > 1)
+    if (this->nPlayers > 1)
     {
         texts[1] = new RotatingTextEntity(&OstrichRiders::GetDefaultFont(), 24, 925.0f, yText);
         texts[1]->setText(0, "Player 2");
@@ -364,7 +360,7 @@ void LogicEngine::startLevel()
     if (targets == 0)
         generateEggsWave();
 
-    for (i = 0; i < nPlayers; i++)
+    for (i = 0; i < NPLAYERS_MAX; i++)
     {
         isSurvivor[i] = true;
         killDelay[i] = 0.0f;
@@ -810,6 +806,16 @@ void LogicEngine::update(float dt)
             int i;
             for (i = 0; i < nPlayers; i++)
             {
+                if ((playerStatus[i] == PLAYER_STATUS_DEATH) && (playerInput[i]->start))
+                {
+                    playerStatus[i] = PLAYER_STATUS_NEW;
+                    playerDelay[i] = 0.4f;
+                    lives[i] = INITIAL_LIVES;
+                    score[i] = 0;
+                    isSurvivor[i] = true;
+                    killDelay[i] = 0.0f;
+                    killCombo[i] = 0;
+                }
                 if (killDelay[i] > 0.0f)
                 {
                     killDelay[i] -= dt;

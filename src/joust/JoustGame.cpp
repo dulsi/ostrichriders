@@ -141,7 +141,11 @@ void JoustGame::startGame(bool arcadeMode)
             lEngine->getPlayerInput(i)->left = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(i).left)) || joyX < -20.0f;
             lEngine->getPlayerInput(i)->right = sf::Keyboard::isKeyPressed((sf::Keyboard::Key)(lEngine->getKeys(i).right)) || joyX > 20.0f;
         }
-
+        if (arcadeMode)
+        {
+            lEngine->getPlayerInput(0)->start = sf::Keyboard::isKeyPressed(sf::Keyboard::Num1);
+            lEngine->getPlayerInput(1)->start = sf::Keyboard::isKeyPressed(sf::Keyboard::Num2);
+        }
 
         if (!lEngine->isPausing())
         {

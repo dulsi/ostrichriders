@@ -26,6 +26,7 @@ public:
     bool jump;
     bool left;
     bool right;
+    bool start;
 };
 
 #endif // PLAYERINPUT_H_INCLUDED

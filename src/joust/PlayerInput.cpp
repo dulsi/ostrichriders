@@ -26,4 +26,5 @@ void PlayerInput::init()
     jump = false;
     left = false;
     right = false;
+    start = false;
 }
