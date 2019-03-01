@@ -1,10 +1,9 @@
 Summary: Knights flying on ostriches compete against other riders
 Name: ostrichriders
-Version: 0.6.4
-Release: 3%{?dist}
+Version: 0.6.5
+Release: 1%{?dist}
 License: GPLv3+
 Url: http://www.identicalsoftware.com/ostrichriders
-Group: Amusements/Games
 Source: http://www.identicalsoftware.com/ostrichriders/%{name}-%{version}.tgz
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -34,18 +33,6 @@ other knights.
 %check
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata.xml
 
-%post
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-%posttrans
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-
 %files
 %license LICENCE
 %doc README
@@ -56,6 +43,9 @@ fi
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Thu Feb 28 2019 Dennis Payne <dulsi@identicalsoftware.com> - 0.6.5-1
+- Add arcade mode.
+
 * Sun Feb 18 2018 Dennis Payne <dulsi@identicalsoftware.com> - 0.6.4-3
 - Add build requirement of gcc-c++.
 
